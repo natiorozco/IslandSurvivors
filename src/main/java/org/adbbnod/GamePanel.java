@@ -3,20 +3,76 @@ package org.adbbnod;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable{
 
-    final int originalTileSize = 16;
-    final int scale = 3;
 
-    final int tileSize = originalTileSize*scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize*maxScreenCol;
-    final int screenHeight = tileSize*maxScreenRow;
+    // Global variables:
 
-    public GamePanel(){
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+    int FPS = 60;
+
+
+
+    public GamePanel() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Obtener tamaño de pantalla
+        this.setPreferredSize(screenSize);  // Ajustar el panel al tamaño de la pantalla
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
     }
+
+    Thread gameThread;
+
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+    }
+
+    public void startGameThread(){
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+
+        double drawInterval = 1000000000 / FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
+
+        while (gameThread != null){
+
+            try {
+                double remainingDrawTime = nextDrawTime - System.nanoTime();
+                remainingDrawTime = remainingDrawTime/1000000;
+
+                if (remainingDrawTime < 0){
+                    remainingDrawTime = 0;
+                }
+
+                Thread.sleep((long) remainingDrawTime);
+
+                nextDrawTime += drawInterval;
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } {
+
+            }
+            // All pending actions.
+
+
+
+            // Update information:
+            update();
+            // Draw screen with updated information:
+
+        }
+    }
+
+    public void update(){
+
+    }
+
+
 }
