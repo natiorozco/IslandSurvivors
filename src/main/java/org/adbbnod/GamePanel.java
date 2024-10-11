@@ -2,6 +2,7 @@ package org.adbbnod;
 
 import javax.swing.*;
 import java.awt.*;
+import entity.Player;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     Thread gameThread;
+    //Player player = new Player(this);
 
 
 
