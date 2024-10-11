@@ -2,7 +2,7 @@ package org.adbbnod;
 
 import javax.swing.*;
 import java.awt.*;
-import entity.Player;
+import entity.Character;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -10,8 +10,6 @@ public class GamePanel extends JPanel implements Runnable{
     // Global variables:
 
     int FPS = 60;
-
-
 
     public GamePanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Obtener tamaño de pantalla
@@ -22,8 +20,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     Thread gameThread;
     //Player player = new Player(this);
-
-
 
     @Override
     protected void paintComponent(Graphics g) {

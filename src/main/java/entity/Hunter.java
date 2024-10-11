@@ -13,6 +13,12 @@ public class Hunter extends Character{
 
     }
 
+    public void sleep(){
+
+    }
+
+
+
     public void defend(Character character, Animal animal){
 
     }
