@@ -28,6 +28,10 @@ public abstract class Character extends Entity{
         return energy;
     }
 
+    public void setShelter(Shelter shelter) {
+        this.shelter = shelter;
+    }
+
     public abstract void act();
     public abstract void eat();
     public void rest(){

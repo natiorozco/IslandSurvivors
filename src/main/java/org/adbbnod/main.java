@@ -57,6 +57,7 @@ public class main {
         gamePanel.startGameThread();
 
 
+
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);
         } else {
