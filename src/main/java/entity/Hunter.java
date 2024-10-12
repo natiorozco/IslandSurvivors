@@ -1,7 +1,13 @@
 package entity;
 
+import org.adbbnod.GamePanel;
+
 public class Hunter extends Character{
     private int huntingLevel;
+
+    public Hunter(GamePanel gp) {
+        super(gp);
+    }
 
     @Override
     public void act() {
@@ -13,13 +19,7 @@ public class Hunter extends Character{
 
     }
 
-    public void sleep(){
+    //public void defend(Character character, Animal animal){
 
-    }
-
-
-
-    public void defend(Character character, Animal animal){
-
-    }
+    //}
 }

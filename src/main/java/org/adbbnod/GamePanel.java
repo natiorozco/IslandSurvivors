@@ -12,8 +12,9 @@ public class GamePanel extends JPanel implements Runnable{
     int FPS = 60;
 
     public GamePanel() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Obtener tamaño de pantalla
-        this.setPreferredSize(screenSize);  // Ajustar el panel al tamaño de la pantalla
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Obtener tamaño de pantalla
+        //this.setSize(600,600);  // Ajustar el panel al tamaño de la pantalla
+        this.setPreferredSize(new Dimension(600,600));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
     }
