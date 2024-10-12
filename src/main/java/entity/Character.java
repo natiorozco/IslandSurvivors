@@ -12,7 +12,7 @@ public abstract class Character extends Entity{
     private int health;
     private int energy;
     private ArrayList<Resource> inventory;
-    //private Shelter shelter;
+    private Shelter shelter;
 
 
     public Character(GamePanel gp){
@@ -32,6 +32,18 @@ public abstract class Character extends Entity{
 
     public void setShelter(Shelter shelter) {
         this.shelter = shelter;
+    }
+
+    public Shelter getShelter() {
+        return shelter;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
     public abstract void act();
@@ -62,5 +74,8 @@ public abstract class Character extends Entity{
         }
     }
 
+    public ArrayList<Resource> getInventory() {
+        return inventory;
+    }
 }
 
