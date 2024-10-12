@@ -22,4 +22,10 @@ public class Hunter extends Character{
     //public void defend(Character character, Animal animal){
 
     //}
+
+
+
+    ///public void defend(Character character, Animal animal){
+
+    //}
 }

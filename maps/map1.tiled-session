@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "testMap.tmx",
+    "activeFile": "mapaFinal.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,12 +12,59 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "mapaFinal.json": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 480,
+                "y": 478
+            }
+        },
+        "mapaFinal.json#32x32 tileSet": {
+            "scaleInDock": 0.5
+        },
+        "mapaFinal.json#B-C-D-E_Serene_Village_01": {
+            "scaleInDock": 0.75
+        },
+        "mapaFinal.json#Bridge_Wood": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#Decorationspre": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#Free Sprites 4x": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#Oak_Tree": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#assets_basic": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#assets_spritesheet_v2_free": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#fence": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#global": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#ground_decorations": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#tiles_trees": {
+            "scaleInDock": 1
+        },
+        "mapaFinal.json#water_waves_32x32": {
+            "scaleInDock": 1
+        },
         "mapaFinal.tmx": {
             "scale": 0.33,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 451.51515151515144,
-                "y": 712.1212121212122
+                "x": -39.393939393939405,
+                "y": 480.3030303030303
             }
         },
         "mapaFinal.tmx#32x32 tileSet": {
@@ -63,8 +110,8 @@
             "scale": 0.75,
             "selectedLayer": -1,
             "viewCenter": {
-                "x": 872,
-                "y": 877.3333333333333
+                "x": 960.6666666666665,
+                "y": 959.3333333333333
             }
         },
         "testMap.tmx#tileSet1": {
@@ -73,17 +120,18 @@
     },
     "last.imagePath": "C:/Users/adbyb/Downloads/Sprites/Animal Basic Asset Pack",
     "map.height": 30,
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedFormat": "json",
     "map.tileHeight": 32,
     "map.tileWidth": 32,
     "openFiles": [
         "testMap.tmx",
-        "mapaFinal.tmx"
+        "mapaFinal.json"
     ],
     "project": "map1.tiled-project",
     "recentFiles": [
-        "mapaFinal.tmx",
-        "testMap.tmx"
+        "testMap.tmx",
+        "mapaFinal.json",
+        "mapaFinal.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
