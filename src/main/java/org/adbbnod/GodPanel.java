@@ -1,8 +1,10 @@
 package org.adbbnod;
-import entity.Healer;
+
 
 import javax.swing.*;
 import java.awt.*;
+
+import static java.lang.String.valueOf;
 
 public class GodPanel extends JPanel{
     JLabel title = new JLabel("ACCIONES DE DIOS");
@@ -13,6 +15,10 @@ public class GodPanel extends JPanel{
 
     JButton disasterButton = new JButton("Tormenta");
     JButton nextDayButton = new JButton("Pasar de día");
+    int day = 0;
+    boolean storm =false; //0 regular, 1 tormenta
+    JLabel currentDay = new JLabel(valueOf(day));
+    JLabel weather = new JLabel((storm? "Tormenta":"Despejado"));
 
     public GodPanel() {
 
@@ -39,7 +45,8 @@ public class GodPanel extends JPanel{
 
 
 
-
+        this.add(weather);
+        this.add(currentDay);
         this.add(appearPanel);
         this.add(actions);
 

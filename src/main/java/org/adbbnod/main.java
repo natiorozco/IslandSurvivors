@@ -8,7 +8,7 @@ import java.awt.*;
 public class main {
     public static void main(String[] args) throws Exception {
 
-        MapLoader mapLoader = new MapLoader("C:\\Users\\adbyb\\OneDrive\\Documentos\\GitHub\\IslandSurvivors\\maps\\mapaFinal.json");
+        MapLoader mapLoader = new MapLoader("C://Users//natal//Desktop//sage//IslandSurvivors//maps//mapaFinal.json");
         MapPanel mapPanel = new MapPanel(mapLoader);
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         JFrame window = new JFrame();
@@ -54,6 +54,10 @@ public class main {
 
         gamePanel.startGameThread();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);
         } else {

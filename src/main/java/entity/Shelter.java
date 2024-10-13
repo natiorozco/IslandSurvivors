@@ -23,9 +23,11 @@ public class Shelter extends Entity{
         }
     }
 
-    private int evaluate(){
+    public int evaluate(){
         return stability;
     }
 
-    //repare
+    public void getRepared(){
+        this.stability=100;
+    }
 }
