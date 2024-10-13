@@ -3,44 +3,40 @@ package org.adbbnod;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import entity.Healer;
 
 public class HealerPanel extends JPanel {
-    // Atributos principales
-    Healer healer; // Objeto curandero
-    JLabel title = new JLabel("CURANDERO"); // Título del panel
+    Healer healer;
+    JLabel title = new JLabel("SANADOR");
     JLabel energy = new JLabel("Energía:");
     JLabel health = new JLabel("Salud:");
-    BatteryPanel energyBar = new BatteryPanel(); // Barra de energía
-    BatteryPanel healthBar = new BatteryPanel(); // Barra de salud
-    JTextField x = new JTextField(2); // Campo para coordenada X
-    JTextField y = new JTextField(2); // Campo para coordenada Y
-    JButton moveButton = new JButton("Mover"); // Botón de mover
-    JButton healButton = new JButton("Curar"); // Botón para curar (por implementar)
-    JButton prepareButton = new JButton("Preparar remedio"); // Botón para preparar remedio (por implementar)
-    JButton eatButton = new JButton("Comer"); // Botón para comer
-    JButton accidentButton = new JButton("Accidente"); // Botón para simular un accidente
-    JButton illnessButton = new JButton("Enfermedad"); // Botón para simular una enfermedad
+    BatteryPanel energyBar = new BatteryPanel();
+    BatteryPanel healthBar = new BatteryPanel();
+    JTextField x = new JTextField(2);
+    JTextField y = new JTextField(2);
+    JButton moveButton = new JButton("Mover");
+    JButton healButton = new JButton("Curar");
+    JButton eatButton = new JButton("Comer");
+    JButton accidentButton = new JButton("Accidente");
+    JButton illnessButton = new JButton("Enfermedad");
 
-    Timer moveTimer; // Temporizador para controlar el movimiento
-    int targetX; // Coordenada X de destino
-    int targetY; // Coordenada Y de destino
-    int stepX; // Incremento en X para cada paso del movimiento
-    int stepY; // Incremento en Y para cada paso del movimiento
+    Timer moveTimer;
+    int targetX;
+    int targetY;
+    int stepX;
+    int stepY;
 
-    // Constructor del panel del curandero
     public HealerPanel(Healer healer) {
         this.healer = healer;
-        this.setLayout(new GridBagLayout()); // Usamos GridBagLayout
-        this.setBackground(new Color(245, 245, 245)); // Fondo suave
-        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true)); // Borde redondeado
+        this.setLayout(new GridBagLayout());
+        this.setBackground(new Color(245, 245, 245));
+        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5); // Margen entre componentes
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Título estilizado
+        // Título
         title.setFont(new Font("Arial", Font.BOLD, 16));
         title.setForeground(new Color(50, 50, 150));
         gbc.gridx = 0;
@@ -76,7 +72,7 @@ public class HealerPanel extends JPanel {
 
         // Panel de movimiento
         JPanel movePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
-        movePanel.setBackground(new Color(230, 245, 230)); // Color verde suave
+        movePanel.setBackground(new Color(230, 245, 230));
         movePanel.setBorder(new LineBorder(new Color(120, 180, 120), 1, true));
         gbc.gridy = 2;
         this.add(movePanel, gbc);
@@ -87,27 +83,23 @@ public class HealerPanel extends JPanel {
         movePanel.add(y);
         movePanel.add(moveButton);
 
-        // Panel de acciones con GridLayout
+        // Panel de acciones
         JPanel actionsPanel = new JPanel(new GridLayout(2, 2, 5, 5));
-        actionsPanel.setBackground(new Color(250, 240, 230)); // Fondo suave
+        actionsPanel.setBackground(new Color(250, 240, 230));
         actionsPanel.setBorder(new LineBorder(new Color(200, 150, 100), 1, true));
         gbc.gridy = 3;
         this.add(actionsPanel, gbc);
 
-        // Estilizamos los botones
-        stylizeButton(healButton, new Color(100, 255, 100));
-        stylizeButton(prepareButton, new Color(150, 250, 150));
+        stylizeButton(healButton, new Color(100, 180, 255));
         stylizeButton(eatButton, new Color(150, 250, 150));
         stylizeButton(accidentButton, new Color(255, 100, 100));
         stylizeButton(illnessButton, new Color(255, 180, 100));
 
         actionsPanel.add(healButton);
-        actionsPanel.add(prepareButton);
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
 
-        // Listeners para los botones
         eatButton.addActionListener(e -> {
             healer.eat();
             energyBar.updateBatteryLevel(healer.getEnergy());
@@ -134,21 +126,19 @@ public class HealerPanel extends JPanel {
                 targetY = Integer.parseInt(y.getText());
                 startMove();
             } catch (NumberFormatException ex) {
-                // Manejar error de formato
             }
         });
 
-        this.setPreferredSize(new Dimension(240, 200)); // Ajustamos el tamaño total
+        this.setPreferredSize(new Dimension(240, 200));
     }
 
     private void stylizeButton(JButton button, Color color) {
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(new LineBorder(color.darker(), 1, true)); // Borde redondeado
+        button.setBorder(new LineBorder(color.darker(), 1, true));
     }
 
-    // Movimiento del curandero
     private void startMove() {
         int deltaX = targetX - healer.getX();
         int deltaY = targetY - healer.getY();

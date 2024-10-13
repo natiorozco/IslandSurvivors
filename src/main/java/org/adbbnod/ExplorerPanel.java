@@ -14,8 +14,8 @@ public class ExplorerPanel extends JPanel {
     JLabel health = new JLabel("Salud:");
     BatteryPanel energyBar = new BatteryPanel();
     BatteryPanel healthBar = new BatteryPanel();
-    JTextField x = new JTextField(2); // Más pequeño
-    JTextField y = new JTextField(2); // Más pequeño
+    JTextField x = new JTextField(2);
+    JTextField y = new JTextField(2);
     JButton moveButton = new JButton("Mover");
     JButton eatButton = new JButton("Comer");
     JButton exploreButton = new JButton("Explorar");
@@ -31,15 +31,15 @@ public class ExplorerPanel extends JPanel {
 
     public ExplorerPanel(Explorer explorer) {
         this.explorer = explorer;
-        this.setLayout(new GridBagLayout()); // Usamos GridBagLayout para mejor control de distribución
-        this.setBackground(new Color(245, 245, 245)); // Fondo suave
-        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true)); // Borde redondeado
+        this.setLayout(new GridBagLayout());
+        this.setBackground(new Color(245, 245, 245));
+        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5); // Margen entre componentes
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Título estilizado
+        // Título
         title.setFont(new Font("Arial", Font.BOLD, 16));
         title.setForeground(new Color(50, 50, 150));
         gbc.gridx = 0;
@@ -49,7 +49,7 @@ public class ExplorerPanel extends JPanel {
 
         // Panel de estadísticas
         JPanel statsPanel = new JPanel(new GridBagLayout());
-        statsPanel.setBackground(new Color(230, 230, 250)); // Color suave para las estadísticas
+        statsPanel.setBackground(new Color(230, 230, 250));
         statsPanel.setBorder(new LineBorder(new Color(150, 150, 200), 1, true));
         gbc.gridy = 1;
         gbc.gridwidth = 2;
@@ -75,7 +75,7 @@ public class ExplorerPanel extends JPanel {
 
         // Panel de movimiento
         JPanel movePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
-        movePanel.setBackground(new Color(230, 245, 230)); // Color verde suave para el panel de movimiento
+        movePanel.setBackground(new Color(230, 245, 230));
         movePanel.setBorder(new LineBorder(new Color(120, 180, 120), 1, true));
         gbc.gridy = 2;
         this.add(movePanel, gbc);
@@ -86,14 +86,13 @@ public class ExplorerPanel extends JPanel {
         movePanel.add(y);
         movePanel.add(moveButton);
 
-        // Panel de acciones con GridLayout
+        // Panel de acciones
         JPanel actionsPanel = new JPanel(new GridLayout(2, 3, 5, 5));
-        actionsPanel.setBackground(new Color(250, 240, 230)); // Fondo suave para los botones
+        actionsPanel.setBackground(new Color(250, 240, 230));
         actionsPanel.setBorder(new LineBorder(new Color(200, 150, 100), 1, true));
         gbc.gridy = 3;
         this.add(actionsPanel, gbc);
 
-        // Estilizamos los botones para que sean más pequeños y con color
         stylizeButton(exploreButton, new Color(100, 180, 255));
         stylizeButton(eatButton, new Color(150, 250, 150));
         stylizeButton(accidentButton, new Color(255, 100, 100));
@@ -106,7 +105,6 @@ public class ExplorerPanel extends JPanel {
         actionsPanel.add(illnessButton);
         actionsPanel.add(gatherButton);
 
-        // Acción de botones
         eatButton.addActionListener(e -> {
             explorer.eat();
             energyBar.updateBatteryLevel(explorer.getEnergy());
@@ -133,21 +131,20 @@ public class ExplorerPanel extends JPanel {
                 targetY = Integer.parseInt(y.getText());
                 startMove();
             } catch (NumberFormatException ex) {
-                // Manejar la excepción si los valores ingresados no son números
+                System.out.println("Por favor ingrese valores numéricos válidos para X e Y.");
             }
         });
 
-        this.setPreferredSize(new Dimension(240, 200)); // Ajustamos el tamaño total
+        this.setPreferredSize(new Dimension(240, 200));
     }
 
     private void stylizeButton(JButton button, Color color) {
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(new LineBorder(color.darker(), 1, true)); // Borde redondeado
+        button.setBorder(new LineBorder(color.darker(), 1, true));
     }
 
-    // Movimiento del explorador
     private void startMove() {
         int deltaX = targetX - explorer.getX();
         int deltaY = targetY - explorer.getY();

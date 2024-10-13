@@ -15,34 +15,33 @@ public class main {
         MapLoader mapLoader = new MapLoader("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\maps\\mapaFinal.json");
         MapPanel mapPanel = new MapPanel(mapLoader);
 
-        // Tamaño del mapa: 30x30 tiles, cada uno de 32x32 píxeles
+        // Definir dimensiones del mapa
         int tileSize = 32;
         int mapWidth = 30 * tileSize;
         int mapHeight = 30 * tileSize;
 
-        // Establecer el tamaño del mapPanel
         mapPanel.setPreferredSize(new Dimension(mapWidth, mapHeight));
         mapPanel.setMinimumSize(new Dimension(mapWidth, mapHeight));
         mapPanel.setMaximumSize(new Dimension(mapWidth, mapHeight));
 
+        // Configuración de la ventana
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Island Survivors");
-
         window.setUndecorated(true);
 
-        // Crear un JPanel con GridBagLayout para centrar el mapa
-        JPanel mapContainer = new JPanel(new GridBagLayout());
-        mapContainer.setOpaque(false); // Hacer que el contenedor sea transparente
-        mapContainer.add(mapPanel, new GridBagConstraints()); // Añadir el mapPanel centrado
+        // Contenedor del juego
+        JPanel gameContainer = new JPanel();
+        gameContainer.setLayout(new OverlayLayout(gameContainer));
+        gameContainer.add(mapPanel);
 
-        // Start game panel
         GamePanel gamePanel = new GamePanel();
         gamePanel.setLayout(new BorderLayout());
-        gamePanel.add(mapContainer, BorderLayout.CENTER); // Centra el contenedor del mapa
+        gamePanel.add(gameContainer, BorderLayout.CENTER);
 
+        // Inicialización de personajes
         Explorer explorer = new Explorer(gamePanel);
         Hunter hunter = new Hunter(gamePanel);
         Healer healer = new Healer(gamePanel);
@@ -50,12 +49,13 @@ public class main {
         Gatherer gatherer = new Gatherer(gamePanel);
         Scientist scientist = new Scientist(gamePanel);
 
-        ExplorerPanel explorerPanel = new ExplorerPanel(explorer);
-        HunterPanel hunterPanel = new HunterPanel(hunter);
-        HealerPanel healerPanel = new HealerPanel(healer);
-        BuilderPanel builderPanel = new BuilderPanel(builder);
-        GathererPanel gathererPanel = new GathererPanel(gatherer);
-        ScientistPanel scientistPanel = new ScientistPanel(scientist);
+        // Paneles de personajes
+        JPanel explorerPanel = new ExplorerPanel(explorer);
+        JPanel hunterPanel = new HunterPanel(hunter);
+        JPanel healerPanel = new HealerPanel(healer);
+        JPanel builderPanel = new BuilderPanel(builder);
+        JPanel gathererPanel = new GathererPanel(gatherer);
+        JPanel scientistPanel = new ScientistPanel(scientist);
 
         JPanel[] characterPanels = {
                 explorerPanel, healerPanel,
@@ -64,46 +64,53 @@ public class main {
 
         GodPanel godPanel = new GodPanel();
 
-        // Ajuste del tamaño del character panel
+        // Panel del menú
         MenuPanel menuPanel = new MenuPanel(characterPanels, godPanel);
-        menuPanel.setPreferredSize(new Dimension(150, window.getHeight())); // Panel más pequeño
-        menuPanel.setMinimumSize(new Dimension(150, window.getHeight())); // Tamaño mínimo para evitar redimensionamiento
-        menuPanel.setMaximumSize(new Dimension(150, window.getHeight())); // Fijar tamaño máximo también
-
-        // Inicialmente ocultar el menuPanel
+        menuPanel.setPreferredSize(new Dimension(50, window.getHeight()));
+        menuPanel.setMinimumSize(new Dimension(50, window.getHeight()));
+        menuPanel.setMaximumSize(new Dimension(50, window.getHeight()));
         menuPanel.setVisible(false);
 
-        // Crear el splitPane ANTES de crear el botón para que esté accesible
+        // Panel dividido
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gamePanel, menuPanel);
-        splitPane.setDividerLocation(0); // Colapsado al inicio
-        splitPane.setEnabled(false); // Deshabilitar el redimensionamiento
-        splitPane.setDividerSize(0); // Eliminar la barra de redimensionamiento
+        splitPane.setDividerLocation(0);
+        splitPane.setEnabled(false);
+        splitPane.setDividerSize(0);
 
-        // Botón para mostrar/ocultar el menuPanel
-        JButton toggleButton = new JButton("X"); // Solo una "X"
+        // Botón para mostrar/ocultar el menú
+        JButton toggleButton = new JButton("X");
         toggleButton.addActionListener(new ActionListener() {
             private boolean isVisible = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 isVisible = !isVisible;
-                menuPanel.setVisible(isVisible); // Mostrar u ocultar el panel de personajes
-                splitPane.setDividerLocation(isVisible ? 150 : 0); // Ajustar la división
+                menuPanel.setVisible(isVisible);
+                splitPane.setDividerLocation(isVisible ? 50 : 0);
             }
         });
 
-        // Panel para colocar el botón en la esquina superior derecha
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT)); // Alinear a la derecha
-        buttonPanel.add(toggleButton);
-        buttonPanel.setOpaque(false); // Transparente para que no cubra el mapa
-        gamePanel.add(buttonPanel, BorderLayout.NORTH); // Añadir el botón en la parte superior
+        // Botón para revelar un tile
+        JButton revealButton = new JButton("Reveal Tile (1, 1)"); // Cambia las coordenadas según necesites
+        revealButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mapPanel.revealTile(1, 1);
+            }
+        });
 
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(toggleButton);
+        buttonPanel.add(revealButton);
+        buttonPanel.setOpaque(false);
+        gamePanel.add(buttonPanel, BorderLayout.NORTH);
+
+        // Añadir el panel dividido a la ventana
         window.getContentPane().add(splitPane);
         window.pack();
         window.setVisible(true);
 
-        gamePanel.startGameThread();
-
+        // Configuración de pantalla completa
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);
         } else {

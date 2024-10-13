@@ -3,7 +3,6 @@ package org.adbbnod;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import entity.Hunter;
 
 public class HunterPanel extends JPanel {
@@ -13,7 +12,7 @@ public class HunterPanel extends JPanel {
     JLabel health = new JLabel("Salud:");
     BatteryPanel energyBar = new BatteryPanel();
     BatteryPanel healthBar = new BatteryPanel();
-    JTextField x = new JTextField(2); // Igual que en Explorer
+    JTextField x = new JTextField(2);
     JTextField y = new JTextField(2);
     JButton moveButton = new JButton("Mover");
     JButton huntButton = new JButton("Cazar");
@@ -29,15 +28,15 @@ public class HunterPanel extends JPanel {
 
     public HunterPanel(Hunter hunter) {
         this.hunter = hunter;
-        this.setLayout(new GridBagLayout()); // Usamos GridBagLayout
-        this.setBackground(new Color(245, 245, 245)); // Fondo suave
-        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true)); // Borde redondeado
+        this.setLayout(new GridBagLayout());
+        this.setBackground(new Color(245, 245, 245));
+        this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5); // Margen entre componentes
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Título estilizado
+        // Título
         title.setFont(new Font("Arial", Font.BOLD, 16));
         title.setForeground(new Color(50, 50, 150));
         gbc.gridx = 0;
@@ -73,7 +72,7 @@ public class HunterPanel extends JPanel {
 
         // Panel de movimiento
         JPanel movePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
-        movePanel.setBackground(new Color(230, 245, 230)); // Color verde suave
+        movePanel.setBackground(new Color(230, 245, 230));
         movePanel.setBorder(new LineBorder(new Color(120, 180, 120), 1, true));
         gbc.gridy = 2;
         this.add(movePanel, gbc);
@@ -84,14 +83,13 @@ public class HunterPanel extends JPanel {
         movePanel.add(y);
         movePanel.add(moveButton);
 
-        // Panel de acciones con GridLayout
+        // Panel de acciones
         JPanel actionsPanel = new JPanel(new GridLayout(2, 2, 5, 5));
-        actionsPanel.setBackground(new Color(250, 240, 230)); // Fondo suave
+        actionsPanel.setBackground(new Color(250, 240, 230));
         actionsPanel.setBorder(new LineBorder(new Color(200, 150, 100), 1, true));
         gbc.gridy = 3;
         this.add(actionsPanel, gbc);
 
-        // Estilizamos los botones
         stylizeButton(huntButton, new Color(100, 180, 255));
         stylizeButton(eatButton, new Color(150, 250, 150));
         stylizeButton(accidentButton, new Color(255, 100, 100));
@@ -102,7 +100,6 @@ public class HunterPanel extends JPanel {
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
 
-        // Listeners para los botones
         eatButton.addActionListener(e -> {
             hunter.eat();
             energyBar.updateBatteryLevel(hunter.getEnergy());
@@ -129,22 +126,19 @@ public class HunterPanel extends JPanel {
                 targetY = Integer.parseInt(y.getText());
                 startMove();
             } catch (NumberFormatException ex) {
-                // Manejar error de formato
             }
         });
 
-        // Ajusta el tamaño total del panel
-        this.setPreferredSize(new Dimension(300, 250)); // Aumenta el tamaño
+        this.setPreferredSize(new Dimension(240, 200));
     }
 
     private void stylizeButton(JButton button, Color color) {
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(new LineBorder(color.darker(), 1, true)); // Borde redondeado
+        button.setBorder(new LineBorder(color.darker(), 1, true));
     }
 
-    // Movimiento del cazador
     private void startMove() {
         int deltaX = targetX - hunter.getX();
         int deltaY = targetY - hunter.getY();
