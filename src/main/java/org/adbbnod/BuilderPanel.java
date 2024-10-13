@@ -17,7 +17,7 @@ public class BuilderPanel extends JPanel {
     JTextField y = new JTextField(3);
     JButton moveButton = new JButton("Mover");
     JButton buildButton = new JButton("Construir");
-    JButton repareButton = new JButton("Reparar");
+    JButton repairButton = new JButton("Reparar");
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
@@ -80,7 +80,7 @@ public class BuilderPanel extends JPanel {
         actionsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         actionsPanel.setBackground(Color.WHITE);
         actionsPanel.add(buildButton);
-        actionsPanel.add(repareButton);
+        actionsPanel.add(repairButton);
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
