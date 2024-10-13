@@ -3,7 +3,7 @@ package entity;
 //import jdk.internal.loader.Resource;
 import org.adbbnod.GamePanel;
 import java.util.ArrayList;
-
+import java.util.Random;
 public abstract class Character extends Entity{
 
     GamePanel gp;
@@ -14,6 +14,9 @@ public abstract class Character extends Entity{
     private ArrayList<Resource> inventory;
     private Shelter shelter;
     private int sickness; //0 para no enfermeadad, 1 enfermedad light y 2 enfermedad grave
+
+    Random rand = new Random();
+    int rand_int1 = rand.nextInt(2);
 
 
     public Character(GamePanel gp){
@@ -100,5 +103,23 @@ public abstract class Character extends Entity{
     }
 
     //accidnete y enfermeadd
+
+    public void accident(){
+        if (rand_int1==0){
+            this.reduceHealth(5);
+            this.reduceEnergy(10);
+        } else{
+            this.reduceHealth(15);
+            this.reduceEnergy(20);
+        }
+    }
+
+    public void sickness(){
+        if (rand_int1==0){
+            this.setSickness(1);
+        } else{
+            this.setSickness(2);
+        }
+    }
 }
 
