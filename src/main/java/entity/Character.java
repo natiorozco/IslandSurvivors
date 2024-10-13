@@ -14,7 +14,6 @@ public abstract class Character extends Entity{
     private int sickness;
     private ArrayList<Resource> inventory;
     private Shelter shelter;
-    private int sickness;
 
     Random rand = new Random();
     int rand_int1 = rand.nextInt(2);

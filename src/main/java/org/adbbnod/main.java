@@ -1,9 +1,12 @@
 package org.adbbnod;
+
 import utils.*;
 import entity.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class main {
     public static void main(String[] args) throws Exception {
@@ -21,8 +24,9 @@ public class main {
 
         // Start game panel
         GamePanel gamePanel = new GamePanel();
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.add(mapPanel, BorderLayout.CENTER); // Centra el mapa
 
-        gamePanel.add(mapPanel);
         Explorer explorer = new Explorer(gamePanel);
         Hunter hunter = new Hunter(gamePanel);
         Healer healer = new Healer(gamePanel);
@@ -42,19 +46,41 @@ public class main {
                 builderPanel, gathererPanel, scientistPanel, hunterPanel
         };
 
-
         GodPanel godPanel = new GodPanel();
 
+        // Ajuste del tamaño del character panel
         MenuPanel menuPanel = new MenuPanel(characterPanels, godPanel);
+        menuPanel.setPreferredSize(new Dimension(150, window.getHeight())); // Panel más pequeño
+        menuPanel.setMinimumSize(new Dimension(150, window.getHeight())); // Tamaño mínimo para evitar redimensionamiento
+        menuPanel.setMaximumSize(new Dimension(150, window.getHeight())); // Fijar tamaño máximo también
 
+        // Crear el splitPane ANTES de crear el botón para que esté accesible
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gamePanel, menuPanel);
-        splitPane.setDividerLocation(600);
+        splitPane.setDividerLocation(150); // Ajusta la ubicación inicial a un tamaño pequeño
+        splitPane.setEnabled(false); // Deshabilitar el redimensionamiento
+        splitPane.setDividerSize(0); // Eliminar la barra de redimensionamiento
+
+        // Botón para mostrar/ocultar el menuPanel
+        JButton toggleButton = new JButton("Mostrar/Ocultar Panel de Personajes");
+        toggleButton.addActionListener(new ActionListener() {
+            private boolean isVisible = true;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isVisible = !isVisible;
+                menuPanel.setVisible(isVisible); // Mostrar u ocultar el panel de personajes
+                splitPane.setDividerLocation(isVisible ? 150 : window.getWidth()); // Ajustar la división
+            }
+        });
+
+        // Agregar el botón en la parte inferior del mapa
+        gamePanel.add(toggleButton, BorderLayout.SOUTH);
 
         window.getContentPane().add(splitPane);
+        window.pack();
         window.setVisible(true);
 
         gamePanel.startGameThread();
-
 
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);
