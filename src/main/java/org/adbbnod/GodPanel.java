@@ -1,5 +1,5 @@
 package org.adbbnod;
-import entity.Healer;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ public class GodPanel extends JPanel{
 
     JButton disasterButton = new JButton("Tormenta");
     JButton nextDayButton = new JButton("Pasar de día");
+    JLabel currentDay = new JLabel("0");
 
     public GodPanel() {
 
@@ -40,6 +41,7 @@ public class GodPanel extends JPanel{
 
 
 
+        this.add(currentDay);
         this.add(appearPanel);
         this.add(actions);
 

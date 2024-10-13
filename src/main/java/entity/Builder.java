@@ -18,7 +18,19 @@ public class Builder extends Character{
 
     @Override
     public void eat() {
+        for (Resource resource: getInventory()){
+            if (Objects.equals(resource.getType(), "carne") || Objects.equals(resource.getType(), "vegetal")){
+                resource.useResource(resource.getAmount());
+                if (Objects.equals(resource.getType(), "carne")){
+                    this.increaseEnergy(20);
+                } else{
+                    this.increaseEnergy(10);
+                }
+                this.getInventory().remove(resource);
+                break;
+            }
 
+        }
     }
 
     public Shelter buildShelter(){
@@ -67,7 +79,7 @@ public class Builder extends Character{
 
     }
 
-    public void repare(Shelter shelter){
+    public void repair(Shelter shelter){
         for (Resource resource: this.getInventory()){
             if(Objects.equals(resource.getType(), "madera") || Objects.equals(resource.getType(), "liana") || Objects.equals(resource.getType(), "piedra")){
                 shelter.getRepared();
