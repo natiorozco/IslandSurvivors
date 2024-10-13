@@ -37,7 +37,7 @@ public class main {
         ScientistPanel scientistPanel = new ScientistPanel(scientist);
 
         JPanel[] characterPanels = {
-                explorerPanel,  healerPanel,
+                explorerPanel, healerPanel,
                 builderPanel, gathererPanel, scientistPanel
         };
 
@@ -54,11 +54,6 @@ public class main {
 
         gamePanel.startGameThread();
 
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);
         } else {

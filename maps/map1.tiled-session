@@ -16,8 +16,8 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 480,
-                "y": 478
+                "x": 492,
+                "y": 453
             }
         },
         "mapaFinal.json#32x32 tileSet": {
@@ -63,8 +63,8 @@
             "scale": 0.33,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": -39.393939393939405,
-                "y": 480.3030303030303
+                "x": 212.12121212121207,
+                "y": 1131.818181818182
             }
         },
         "mapaFinal.tmx#32x32 tileSet": {
@@ -110,7 +110,7 @@
             "scale": 0.75,
             "selectedLayer": -1,
             "viewCenter": {
-                "x": 960.6666666666665,
+                "x": 960,
                 "y": 959.3333333333333
             }
         },
@@ -124,14 +124,14 @@
     "map.tileHeight": 32,
     "map.tileWidth": 32,
     "openFiles": [
-        "testMap.tmx",
+        "mapaFinal.tmx",
         "mapaFinal.json"
     ],
     "project": "map1.tiled-project",
     "recentFiles": [
-        "testMap.tmx",
+        "mapaFinal.tmx",
         "mapaFinal.json",
-        "mapaFinal.tmx"
+        "testMap.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

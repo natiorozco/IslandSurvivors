@@ -24,8 +24,8 @@ public class MapLoader {
         JsonNode json = mapper.readTree(content);
 
         // Obtener dimensiones del mapa
-        int width = json.get("width").asInt();
         int height = json.get("height").asInt();
+        int width = json.get("width").asInt(); // Cambié esto a json.get("width").asInt()
 
         // Crear la matriz del mapa, inicialmente llena de ceros
         map = new int[height][width];
@@ -36,6 +36,7 @@ public class MapLoader {
         for (JsonNode tileset : tilesets) {
             int firstgid = tileset.get("firstgid").asInt();
             String imagePath = tileset.get("image").asText();
+
             tileWidth = tileset.get("tilewidth").asInt();
             tileHeight = tileset.get("tileheight").asInt();
             int tileCount = tileset.get("tilecount").asInt();
@@ -56,16 +57,39 @@ public class MapLoader {
 
         // Obtener los layers
         JsonNode layers = json.get("layers");
-        for (JsonNode layer : layers) {
-            JsonNode data = layer.get("data");
 
-            // Combinar el layer en el mapa
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int tileId = data.get(y * width + x).asInt();
+        // Acceder directamente a las capas con datos
+        if (layers.size() > 1) { // Verificar si hay suficientes capas
+            processLayer(layers.get(1), height, width); // Tile Layer 1
+        }
+        if (layers.size() > 2) { // Verificar si hay suficientes capas
+            processLayer(layers.get(2), height, width); // Tile Layer 2
+        }
+    }
+
+    private void processLayer(JsonNode layer, int height, int width) {
+        JsonNode data = layer.get("data");
+
+        // Verificar si data no es nulo y es un arreglo
+        if (data == null || !data.isArray()) {
+            System.out.println("Layer '" + layer.get("name").asText() + "' no tiene datos o no es un arreglo.");
+            return; // Terminar el procesamiento
+        }
+
+        // Combinar el layer en el mapa
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // Calcular el índice correctamente
+                int index = y * width + x;
+
+                // Verificar que no se salga del rango de data
+                if (index < data.size()) {
+                    int tileId = data.get(index).asInt(); // Leer el tileId
                     if (tileId != 0) { // Si el tile no es cero, se mantiene en el mapa
                         map[y][x] = tileId;
                     }
+                } else {
+                    System.out.println("Índice fuera de rango para layer '" + layer.get("name").asText() + "'.");
                 }
             }
         }

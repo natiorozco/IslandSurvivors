@@ -12,7 +12,7 @@ public abstract class Character extends Entity{
     private int health;
     private int energy;
     private ArrayList<Resource> inventory;
-    //private Shelter shelter;
+    private Shelter shelter;
 
 
     public Character(GamePanel gp){
