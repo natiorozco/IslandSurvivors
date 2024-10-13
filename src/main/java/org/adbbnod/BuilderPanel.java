@@ -16,8 +16,8 @@ public class BuilderPanel extends JPanel {
     JTextField x = new JTextField(3);
     JTextField y = new JTextField(3);
     JButton moveButton = new JButton("Mover");
-    JButton buildButton = new JButton("Construir");
-    JButton repairButton = new JButton("Reparar");
+    JButton buildButton = new JButton("Construir"); //TODO
+    JButton repairButton = new JButton("Reparar"); //TODO
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
@@ -54,6 +54,8 @@ public class BuilderPanel extends JPanel {
         healthBar.updateBatteryLevel(builder.getHealth());
         statsPanel.add(healthBar);
 
+        statsPanel.setPreferredSize(new Dimension(90, 10));
+
 
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -63,6 +65,37 @@ public class BuilderPanel extends JPanel {
         movePanel.add(new JLabel("Y:"));
         movePanel.add(y);
         movePanel.add(moveButton);
+        movePanel.setPreferredSize(new Dimension(90, 10));
+
+        eatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                builder.eat();
+                energyBar.updateBatteryLevel(builder.getEnergy());
+                repaint();
+            }
+        });
+
+        accidentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                builder.accident();
+                energyBar.updateBatteryLevel(builder.getEnergy());
+                healthBar.updateBatteryLevel(builder.getHealth());
+                repaint();
+            }
+        });
+
+        illnessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                builder.sickness();
+                energyBar.updateBatteryLevel(builder.getEnergy());
+                healthBar.updateBatteryLevel(builder.getHealth());
+                repaint();
+            }
+        });
 
 
         moveButton.addActionListener(e -> {
@@ -84,13 +117,14 @@ public class BuilderPanel extends JPanel {
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
+        actionsPanel.setPreferredSize(new Dimension(90, 10));
 
 
         this.add(statsPanel);
         this.add(movePanel);
         this.add(actionsPanel);
 
-        this.setPreferredSize(new Dimension(200, 130));
+        this.setPreferredSize(new Dimension(200, 80));
     }
 
 

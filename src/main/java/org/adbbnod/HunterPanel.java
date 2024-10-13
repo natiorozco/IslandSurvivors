@@ -17,7 +17,7 @@ public class HunterPanel extends JPanel {
     JTextField y = new JTextField(3);
     JButton moveButton = new JButton("Mover");
     Timer moveTimer;
-    JButton huntButton = new JButton("Cazar");
+    JButton huntButton = new JButton("Cazar"); //TODO
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
@@ -50,6 +50,8 @@ public class HunterPanel extends JPanel {
         healthBar.updateBatteryLevel(hunter.getHealth());
         statsPanel.add(healthBar);
 
+        statsPanel.setPreferredSize(new Dimension(90, 10));
+
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         movePanel.setBackground(Color.WHITE);
@@ -58,6 +60,37 @@ public class HunterPanel extends JPanel {
         movePanel.add(new JLabel("Y:"));
         movePanel.add(y);
         movePanel.add(moveButton);
+        movePanel.setPreferredSize(new Dimension(90, 10));
+
+        eatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                hunter.eat();
+                energyBar.updateBatteryLevel(hunter.getEnergy());
+                repaint();
+            }
+        });
+
+        accidentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hunter.accident();
+                energyBar.updateBatteryLevel(hunter.getEnergy());
+                healthBar.updateBatteryLevel(hunter.getHealth());
+                repaint();
+            }
+        });
+
+        illnessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hunter.sickness();
+                energyBar.updateBatteryLevel(hunter.getEnergy());
+                healthBar.updateBatteryLevel(hunter.getHealth());
+                repaint();
+            }
+        });
 
         moveButton.addActionListener(e -> {
             try {
@@ -75,12 +108,13 @@ public class HunterPanel extends JPanel {
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
+        actionsPanel.setPreferredSize(new Dimension(90, 10));
 
         this.add(statsPanel);
         this.add(movePanel);
         this.add(actionsPanel);
 
-        this.setPreferredSize(new Dimension(200, 130));
+        this.setPreferredSize(new Dimension(200, 80));
     }
 
     private void startMove() {
