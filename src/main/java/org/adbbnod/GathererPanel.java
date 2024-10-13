@@ -17,7 +17,7 @@ public class GathererPanel extends JPanel {
     JTextField y = new JTextField(3);
     JButton moveButton = new JButton("Mover");
     Timer moveTimer;
-    JButton gatherButton = new JButton("Recolectar");
+    JButton gatherButton = new JButton("Recolectar"); //TODO
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
@@ -50,6 +50,8 @@ public class GathererPanel extends JPanel {
         healthBar.updateBatteryLevel(gatherer.getHealth());
         statsPanel.add(healthBar);
 
+        statsPanel.setPreferredSize(new Dimension(90, 10));
+
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         movePanel.setBackground(Color.WHITE);
@@ -58,6 +60,37 @@ public class GathererPanel extends JPanel {
         movePanel.add(new JLabel("Y:"));
         movePanel.add(y);
         movePanel.add(moveButton);
+        movePanel.setPreferredSize(new Dimension(90, 10));
+
+        eatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                gatherer.eat();
+                energyBar.updateBatteryLevel(gatherer.getEnergy());
+                repaint();
+            }
+        });
+
+        accidentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gatherer.accident();
+                energyBar.updateBatteryLevel(gatherer.getEnergy());
+                healthBar.updateBatteryLevel(gatherer.getHealth());
+                repaint();
+            }
+        });
+
+        illnessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gatherer.sickness();
+                energyBar.updateBatteryLevel(gatherer.getEnergy());
+                healthBar.updateBatteryLevel(gatherer.getHealth());
+                repaint();
+            }
+        });
 
         moveButton.addActionListener(e -> {
             try {
@@ -75,12 +108,13 @@ public class GathererPanel extends JPanel {
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
+        actionsPanel.setPreferredSize(new Dimension(90, 10));
 
         this.add(statsPanel);
         this.add(movePanel);
         this.add(actionsPanel);
 
-        this.setPreferredSize(new Dimension(200, 130));
+        this.setPreferredSize(new Dimension(200, 80));
     }
 
     private void startMove() {

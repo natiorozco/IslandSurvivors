@@ -24,14 +24,14 @@ public class main {
 
         gamePanel.add(mapPanel);
         Explorer explorer = new Explorer(gamePanel);
-        //Hunter hunter = new Hunter(gamePanel);
+        Hunter hunter = new Hunter(gamePanel);
         Healer healer = new Healer(gamePanel);
         Builder builder = new Builder(gamePanel);
         Gatherer gatherer = new Gatherer(gamePanel);
         Scientist scientist = new Scientist(gamePanel);
 
         ExplorerPanel explorerPanel = new ExplorerPanel(explorer);
-        //HunterPanel hunterPanel = new HunterPanel(hunter);
+        HunterPanel hunterPanel = new HunterPanel(hunter);
         HealerPanel healerPanel = new HealerPanel(healer);
         BuilderPanel builderPanel = new BuilderPanel(builder);
         GathererPanel gathererPanel = new GathererPanel(gatherer);
@@ -39,7 +39,7 @@ public class main {
 
         JPanel[] characterPanels = {
                 explorerPanel, healerPanel,
-                builderPanel, gathererPanel, scientistPanel
+                builderPanel, gathererPanel, scientistPanel, hunterPanel
         };
 
 
@@ -54,6 +54,7 @@ public class main {
         window.setVisible(true);
 
         gamePanel.startGameThread();
+
 
         if (gd.isFullScreenSupported()) {
             gd.setFullScreenWindow(window);

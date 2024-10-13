@@ -18,10 +18,10 @@ public class ExplorerPanel extends JPanel {
     JButton moveButton = new JButton("Mover");
     Timer moveTimer;
     JButton eatButton = new JButton("Comer");
-    JButton exploreButton = new JButton("Explorar");
+    JButton exploreButton = new JButton("Explorar"); //TODO: explore
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
-    JButton gatherButton = new JButton("Recolectar");
+    JButton gatherButton = new JButton("Recolectar"); //TODO
 
     int targetX;
     int targetY;
@@ -51,6 +51,8 @@ public class ExplorerPanel extends JPanel {
         healthBar.updateBatteryLevel(explorer.getHealth());
         statsPanel.add(healthBar);
 
+        statsPanel.setPreferredSize(new Dimension(90, 10));
+
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         movePanel.setBackground(Color.WHITE);
@@ -59,6 +61,39 @@ public class ExplorerPanel extends JPanel {
         movePanel.add(new JLabel("Y:"));
         movePanel.add(y);
         movePanel.add(moveButton);
+        movePanel.setPreferredSize(new Dimension(90, 10));
+
+        eatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                explorer.eat();
+                energyBar.updateBatteryLevel(explorer.getEnergy());
+                repaint();
+            }
+        });
+
+        accidentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                explorer.accident();
+                energyBar.updateBatteryLevel(explorer.getEnergy());
+                healthBar.updateBatteryLevel(explorer.getHealth());
+                repaint();
+            }
+        });
+
+        illnessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                explorer.sickness();
+                energyBar.updateBatteryLevel(explorer.getEnergy());
+                healthBar.updateBatteryLevel(explorer.getHealth());
+                repaint();
+            }
+        });
+
+
 
         moveButton.addActionListener(e -> {
             try {
@@ -77,12 +112,14 @@ public class ExplorerPanel extends JPanel {
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
         actionsPanel.add(gatherButton);
+        actionsPanel.setPreferredSize(new Dimension(90, 10));
 
         this.add(statsPanel);
         this.add(movePanel);
         this.add(actionsPanel);
 
-        this.setPreferredSize(new Dimension(200, 130));
+        this.setPreferredSize(new Dimension(200, 80));
+
     }
 
     private void startMove() {
@@ -116,4 +153,7 @@ public class ExplorerPanel extends JPanel {
             moveTimer.stop();
         }
     }
+
+
+
 }
