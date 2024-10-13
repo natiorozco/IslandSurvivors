@@ -2,6 +2,10 @@ package entity;
 
 import org.adbbnod.GamePanel;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
@@ -15,8 +19,13 @@ public class Explorer extends Character{
 
     public Explorer(GamePanel gp) {
         super(gp);
+
+        this.x=10;
+        this.y=10;
         explorationLevel=0;
     }
+
+
 
     @Override
     public void act() {
@@ -56,4 +65,6 @@ public class Explorer extends Character{
             }
         }
     }
+
+
 }

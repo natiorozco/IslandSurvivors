@@ -69,6 +69,8 @@ public class GodPanel extends JPanel{
                 day++;
                 currentDay.setText("Day: " + valueOf(day)+")");
                 repaint();
+
+
             }
         });
     }

@@ -3,9 +3,10 @@ package org.adbbnod;
 import javax.swing.*;
 import java.awt.*;
 import entity.Character;
+import entity.Explorer;
 
 public class GamePanel extends JPanel implements Runnable{
-
+    public Explorer explorer;
 
     // Global variables:
 
@@ -24,9 +25,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        super.paintComponent(g); // Limpia el panel
 
+
+        // Dibuja el explorador
+        if (explorer != null && explorer.getSprite() != null) {
+            g.drawImage(explorer.getSprite(), explorer.getX(), explorer.getY(), null);
+        }
     }
+
 
     public void startGameThread(){
         gameThread = new Thread(this);
@@ -66,12 +73,18 @@ public class GamePanel extends JPanel implements Runnable{
             update();
             // Draw screen with updated information:
 
+            repaint();
+
         }
     }
 
     public void update(){
 
     }
+
+
+
+
 
 
 }
