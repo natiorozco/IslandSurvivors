@@ -19,8 +19,9 @@ public class Explorer extends Character{
     int max = 30;
     int randomInRange = random.nextInt(max - min + 1) + min;
 
-    public Explorer(GamePanel gp) {
-        super(gp);
+
+    public Explorer(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
         this.x=10;
         this.y=10;
         explorationLevel=0;
@@ -74,6 +75,5 @@ public class Explorer extends Character{
             }
         }
     }
-
 
 }

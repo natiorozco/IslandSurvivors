@@ -2,15 +2,20 @@ package utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import entity.Character;
 
 public class MapPanel extends JPanel {
     private MapLoader mapLoader;
     private boolean[][] fog;
+    private List<Character> characters;
 
     public MapPanel(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
+        this.characters = new ArrayList<>();
 
         setPreferredSize(new Dimension(mapLoader.getMap(0)[0].length * mapLoader.getTileWidth(),
                 mapLoader.getMap(0).length * mapLoader.getTileHeight()));
@@ -24,6 +29,10 @@ public class MapPanel extends JPanel {
                 fog[y][x] = true;
             }
         }
+    }
+
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
     @Override
@@ -50,6 +59,19 @@ public class MapPanel extends JPanel {
         }
 
         drawFog(g, tileWidth, tileHeight);
+
+        // Dibuja los personajes en sus posiciones
+        for (Character character : characters) {
+            drawCharacter(g, character, 0); // Aquí puedes pasar el índice del sprite si tienes diferentes estados
+        }
+    }
+
+    private void drawCharacter(Graphics g, Character character, int indx) {
+        BufferedImage spriteToDraw = character.getSprite(indx);
+        // Multiplica las coordenadas por el tamaño del tile para posicionar correctamente
+        int x = character.getX() * mapLoader.getTileWidth();
+        int y = character.getY() * mapLoader.getTileHeight();
+        g.drawImage(spriteToDraw, x, y, null);
     }
 
     private void drawFog(Graphics g, int tileWidth, int tileHeight) {
@@ -66,7 +88,7 @@ public class MapPanel extends JPanel {
     public void revealTile(int x, int y) {
         if (x >= 0 && x < fog[0].length && y >= 0 && y < fog.length) {
             fog[y][x] = false;
-            repaint();
+            repaint(); // Redibuja el mapa después de revelar un tile
         }
     }
 

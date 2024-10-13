@@ -14,8 +14,8 @@ public class Hunter extends Character{
     int randomInRange = random.nextInt(max - min + 1) + min;
 
 
-    public Hunter(GamePanel gp) {
-        super(gp);
+    public Hunter(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
     }
 
     @Override

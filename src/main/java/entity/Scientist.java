@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Scientist extends Character{
     int scienceLevel;
     
-    public Scientist(GamePanel gp) {
-        super(gp);
+    public Scientist(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
     }
 
     @Override

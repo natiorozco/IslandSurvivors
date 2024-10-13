@@ -25,13 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Limpia el panel
-
-
-        // Dibuja el explorador
-        if (explorer != null && explorer.getSprite() != null) {
-            g.drawImage(explorer.getSprite(), explorer.getX(), explorer.getY(), null);
-        }
+        super.paintComponent(g);
     }
 
 
@@ -72,8 +66,6 @@ public class GamePanel extends JPanel implements Runnable{
             // Update information:
             update();
             // Draw screen with updated information:
-
-            repaint();
 
         }
     }

@@ -2,8 +2,12 @@ package entity;
 
 //import jdk.internal.loader.Resource;
 import org.adbbnod.GamePanel;
+
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
 public abstract class Character extends Entity{
 
     GamePanel gp;
@@ -19,11 +23,12 @@ public abstract class Character extends Entity{
     int rand_int1 = rand.nextInt(2);
 
 
-    public Character(GamePanel gp){
+    public Character(GamePanel gp, String spritePath, int spriteWidth, int spriteHeight){
         this.gp=gp;
         this.health=100;
         this.energy=100;
         this.inventory=new ArrayList<Resource>();
+        loadSprite(spritePath, spriteWidth, spriteHeight);
     }
 
     public int getSickness() {
@@ -121,5 +126,6 @@ public abstract class Character extends Entity{
             this.setSickness(2);
         }
     }
+
 }
 

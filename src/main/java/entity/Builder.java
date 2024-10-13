@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Builder extends Character{
     int constructionLevel;
 
-    public Builder(GamePanel gp) {
-        super(gp);
+    public Builder(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
     }
 
     @Override

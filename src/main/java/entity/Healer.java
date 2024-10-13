@@ -8,8 +8,8 @@ import entity.Resource;
 public class Healer extends Character{
     int healLevel;
 
-    public Healer(GamePanel gp) {
-        super(gp);
+    public Healer(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
     }
 
     @Override

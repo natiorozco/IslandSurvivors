@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Gatherer extends Character{
     private int gatheringLevel;
 
-    public Gatherer(GamePanel gp) {
-        super(gp);
+    public Gatherer(GamePanel gp, String path) {
+        super(gp, path, 32, 32);
     }
 
     @Override
