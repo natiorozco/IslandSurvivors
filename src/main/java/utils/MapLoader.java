@@ -6,12 +6,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
 public class MapLoader {
-    private int[][] map; // Matriz que representa el mapa combinado
+    private List<int[][]> maps; // Lista que representa las capas del mapa
     private Map<Integer, BufferedImage> tileMap;
     private int tileWidth;
     private int tileHeight;
@@ -25,10 +27,10 @@ public class MapLoader {
 
         // Obtener dimensiones del mapa
         int height = json.get("height").asInt();
-        int width = json.get("width").asInt(); // Cambié esto a json.get("width").asInt()
+        int width = json.get("width").asInt();
 
-        // Crear la matriz del mapa, inicialmente llena de ceros
-        map = new int[height][width];
+        // Crear la lista de mapas
+        maps = new ArrayList<>();
 
         // Cargar el tileset
         tileMap = new HashMap<>();
@@ -58,22 +60,20 @@ public class MapLoader {
         // Obtener los layers
         JsonNode layers = json.get("layers");
 
-        // Acceder directamente a las capas con datos
-        if (layers.size() > 1) { // Verificar si hay suficientes capas
-            processLayer(layers.get(1), height, width); // Tile Layer 1
-        }
-        if (layers.size() > 2) { // Verificar si hay suficientes capas
-            processLayer(layers.get(2), height, width); // Tile Layer 2
+        // Procesar las capas en orden
+        for (JsonNode layer : layers) {
+            maps.add(processLayer(layer, height, width)); // Agregar cada capa a la lista
         }
     }
 
-    private void processLayer(JsonNode layer, int height, int width) {
+    private int[][] processLayer(JsonNode layer, int height, int width) {
+        int[][] layerMap = new int[height][width]; // Crear una matriz para la capa actual
         JsonNode data = layer.get("data");
 
         // Verificar si data no es nulo y es un arreglo
         if (data == null || !data.isArray()) {
             System.out.println("Layer '" + layer.get("name").asText() + "' no tiene datos o no es un arreglo.");
-            return; // Terminar el procesamiento
+            return layerMap; // Retornar la capa vacía
         }
 
         // Combinar el layer en el mapa
@@ -86,17 +86,22 @@ public class MapLoader {
                 if (index < data.size()) {
                     int tileId = data.get(index).asInt(); // Leer el tileId
                     if (tileId != 0) { // Si el tile no es cero, se mantiene en el mapa
-                        map[y][x] = tileId;
+                        layerMap[y][x] = tileId; // Almacenar el tileId en la capa actual
                     }
                 } else {
                     System.out.println("Índice fuera de rango para layer '" + layer.get("name").asText() + "'.");
                 }
             }
         }
+        return layerMap; // Retornar la matriz de la capa
     }
 
-    public int[][] getMap() {
-        return map;
+    public int[][] getMap(int index) {
+        return maps.get(index); // Devolver el mapa en el índice especificado
+    }
+
+    public int getMapCount() {
+        return maps.size(); // Retornar el tamaño de la lista de mapas
     }
 
     public Map<Integer, BufferedImage> getTileMap() {

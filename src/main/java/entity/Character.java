@@ -11,8 +11,9 @@ public abstract class Character extends Entity{
     private String name;
     private int health;
     private int energy;
+    private int sickness;
     private ArrayList<Resource> inventory;
-    //private Shelter shelter;
+    private Shelter shelter;
 
     Random rand = new Random();
     int rand_int1 = rand.nextInt(2);
