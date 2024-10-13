@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.Scientist;
+import utils.MapPanel;
 
 public class ScientistPanel extends JPanel {
     Scientist scientist;
@@ -28,7 +29,7 @@ public class ScientistPanel extends JPanel {
     int stepX;
     int stepY;
 
-    public ScientistPanel(Scientist scientist) {
+    public ScientistPanel(Scientist scientist, MapPanel map) {
         this.scientist = scientist;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -126,7 +127,8 @@ public class ScientistPanel extends JPanel {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
                 System.out.println("Por favor ingrese valores numéricos válidos para X e Y.");
             }
@@ -143,28 +145,25 @@ public class ScientistPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - scientist.getX();
-        int deltaY = targetY - scientist.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = scientist.getX();
-        int currentY = scientist.getY();
+        // Llamar al método move en el explorador
+        scientist.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            scientist.setX(currentX + stepX);
-            scientist.setY(currentY + stepY);
-            repaint();
-        } else {
-            scientist.setX(targetX);
-            scientist.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (scientist.getX() == targetX && scientist.getY() == targetY) {
+            System.out.println("Posición final: (" + scientist.getX() + ", " + scientist.getY() + ")");
             moveTimer.stop();
         }
+    }
+    private void updateBars() {
+        energyBar.updateBatteryLevel(scientist.getEnergy());
+        healthBar.updateBatteryLevel(scientist.getHealth());
     }
 }

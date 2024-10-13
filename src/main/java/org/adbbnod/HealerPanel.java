@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import entity.Healer;
+import utils.MapPanel;
 
 public class HealerPanel extends JPanel {
     Healer healer;
@@ -26,7 +27,7 @@ public class HealerPanel extends JPanel {
     int stepX;
     int stepY;
 
-    public HealerPanel(Healer healer) {
+    public HealerPanel(Healer healer, MapPanel map) {
         this.healer = healer;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -124,7 +125,8 @@ public class HealerPanel extends JPanel {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
             }
         });
@@ -140,28 +142,25 @@ public class HealerPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - healer.getX();
-        int deltaY = targetY - healer.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = healer.getX();
-        int currentY = healer.getY();
+        // Llamar al método move en el explorador
+        healer.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            healer.setX(currentX + stepX);
-            healer.setY(currentY + stepY);
-            repaint();
-        } else {
-            healer.setX(targetX);
-            healer.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (healer.getX() == targetX && healer.getY() == targetY) {
+            System.out.println("Posición final: (" + healer.getX() + ", " + healer.getY() + ")");
             moveTimer.stop();
         }
+    }
+    private void updateBars() {
+        energyBar.updateBatteryLevel(healer.getEnergy());
+        healthBar.updateBatteryLevel(healer.getHealth());
     }
 }

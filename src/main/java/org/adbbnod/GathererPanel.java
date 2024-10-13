@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.Gatherer;
+import utils.MapPanel;
 
 public class GathererPanel extends JPanel {
     Gatherer gatherer;
@@ -28,7 +29,7 @@ public class GathererPanel extends JPanel {
     int stepX;
     int stepY;
 
-    public GathererPanel(Gatherer gatherer) {
+    public GathererPanel(Gatherer gatherer, MapPanel map) {
         this.gatherer = gatherer;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -126,7 +127,8 @@ public class GathererPanel extends JPanel {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
                 System.out.println("Por favor ingrese valores numéricos válidos para X e Y.");
             }
@@ -143,28 +145,25 @@ public class GathererPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - gatherer.getX();
-        int deltaY = targetY - gatherer.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = gatherer.getX();
-        int currentY = gatherer.getY();
+        // Llamar al método move en el explorador
+        gatherer.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            gatherer.setX(currentX + stepX);
-            gatherer.setY(currentY + stepY);
-            repaint();
-        } else {
-            gatherer.setX(targetX);
-            gatherer.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (gatherer.getX() == targetX && gatherer.getY() == targetY) {
+            System.out.println("Posición final: (" + gatherer.getX() + ", " + gatherer.getY() + ")");
             moveTimer.stop();
         }
+    }
+    private void updateBars() {
+        energyBar.updateBatteryLevel(gatherer.getEnergy());
+        healthBar.updateBatteryLevel(gatherer.getHealth());
     }
 }

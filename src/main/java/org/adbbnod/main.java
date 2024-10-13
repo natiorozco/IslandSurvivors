@@ -50,12 +50,12 @@ public class main {
                 Scientist scientist = new Scientist(gamePanel);
 
                 // Paneles de personajes
-                JPanel explorerPanel = new ExplorerPanel(explorer);
-                JPanel hunterPanel = new HunterPanel(hunter);
-                JPanel healerPanel = new HealerPanel(healer);
-                JPanel builderPanel = new BuilderPanel(builder);
-                JPanel gathererPanel = new GathererPanel(gatherer);
-                JPanel scientistPanel = new ScientistPanel(scientist);
+                JPanel explorerPanel = new ExplorerPanel(explorer, mapPanel);
+                JPanel hunterPanel = new HunterPanel(hunter, mapPanel);
+                JPanel healerPanel = new HealerPanel(healer, mapPanel);
+                JPanel builderPanel = new BuilderPanel(builder, mapPanel);
+                JPanel gathererPanel = new GathererPanel(gatherer, mapPanel);
+                JPanel scientistPanel = new ScientistPanel(scientist, mapPanel);
 
                 JPanel[] characterPanels = {
                         explorerPanel, healerPanel,
@@ -90,18 +90,30 @@ public class main {
                         }
                 });
 
-                // Botón para revelar un tile
-                JButton revealButton = new JButton("Reveal Tile (1, 1)"); // Cambia las coordenadas según necesites
-                revealButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                mapPanel.revealTile(1, 1);
-                        }
-                });
+                mapPanel.revealTile(7, 7);
+                mapPanel.revealTile(7, 8);
+                mapPanel.revealTile(7, 9);
+                mapPanel.revealTile(7, 10);
+
+                mapPanel.revealTile(8, 7);
+                mapPanel.revealTile(8, 8);
+                mapPanel.revealTile(8, 9);
+                mapPanel.revealTile(8, 10);
+
+                mapPanel.revealTile(9, 7);
+                mapPanel.revealTile(9, 8);
+                mapPanel.revealTile(9, 9);
+                mapPanel.revealTile(9, 10);
+
+                mapPanel.revealTile(10, 7);
+                mapPanel.revealTile(10, 8);
+                mapPanel.revealTile(10, 9);
+                mapPanel.revealTile(10, 10);
+
 
                 JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                 buttonPanel.add(toggleButton);
-                buttonPanel.add(revealButton);
+
                 buttonPanel.setOpaque(false);
                 gamePanel.add(buttonPanel, BorderLayout.NORTH);
 

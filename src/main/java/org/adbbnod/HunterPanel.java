@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import entity.Hunter;
+import utils.MapPanel;
 
 public class HunterPanel extends JPanel {
     Hunter hunter;
@@ -26,7 +27,7 @@ public class HunterPanel extends JPanel {
     int stepX;
     int stepY;
 
-    public HunterPanel(Hunter hunter) {
+    public HunterPanel(Hunter hunter, MapPanel map) {
         this.hunter = hunter;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -124,7 +125,8 @@ public class HunterPanel extends JPanel {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
             }
         });
@@ -140,28 +142,25 @@ public class HunterPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - hunter.getX();
-        int deltaY = targetY - hunter.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = hunter.getX();
-        int currentY = hunter.getY();
+        // Llamar al método move en el explorador
+        hunter.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            hunter.setX(currentX + stepX);
-            hunter.setY(currentY + stepY);
-            repaint();
-        } else {
-            hunter.setX(targetX);
-            hunter.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (hunter.getX() == targetX && hunter.getY() == targetY) {
+            System.out.println("Posición final: (" + hunter.getX() + ", " + hunter.getY() + ")");
             moveTimer.stop();
         }
+    }
+    private void updateBars() {
+        energyBar.updateBatteryLevel(hunter.getEnergy());
+        healthBar.updateBatteryLevel(hunter.getHealth());
     }
 }

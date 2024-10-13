@@ -70,4 +70,13 @@ public class MapPanel extends JPanel {
         }
     }
 
+    public boolean isRevealed(int x, int y){
+        if (x >= 0 && x < fog[0].length && y >= 0 && y < fog.length) {
+            if (!fog[y][x]){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

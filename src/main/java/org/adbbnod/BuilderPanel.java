@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.Builder;
+import utils.MapPanel;
 
 public class BuilderPanel extends JPanel {
     Builder builder;
@@ -29,7 +30,7 @@ public class BuilderPanel extends JPanel {
     int stepX;
     int stepY;
 
-    public BuilderPanel(Builder builder) {
+    public BuilderPanel(Builder builder, MapPanel map) {
         this.builder = builder;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -131,7 +132,8 @@ public class BuilderPanel extends JPanel {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
                 System.out.println("Por favor ingrese valores numéricos válidos para X e Y.");
             }
@@ -148,28 +150,25 @@ public class BuilderPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - builder.getX();
-        int deltaY = targetY - builder.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = builder.getX();
-        int currentY = builder.getY();
+        // Llamar al método move en el explorador
+        builder.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            builder.setX(currentX + stepX);
-            builder.setY(currentY + stepY);
-            repaint();
-        } else {
-            builder.setX(targetX);
-            builder.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (builder.getX() == targetX && builder.getY() == targetY) {
+            System.out.println("Posición final: (" + builder.getX() + ", " + builder.getY() + ")");
             moveTimer.stop();
         }
+    }
+    private void updateBars() {
+        energyBar.updateBatteryLevel(builder.getEnergy());
+        healthBar.updateBatteryLevel(builder.getHealth());
     }
 }

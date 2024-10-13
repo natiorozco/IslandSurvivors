@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.Explorer;
+import utils.MapPanel;
 
 public class ExplorerPanel extends JPanel {
     Explorer explorer;
@@ -26,10 +27,8 @@ public class ExplorerPanel extends JPanel {
     Timer moveTimer;
     int targetX;
     int targetY;
-    int stepX;
-    int stepY;
 
-    public ExplorerPanel(Explorer explorer) {
+    public ExplorerPanel(Explorer explorer, MapPanel map) {
         this.explorer = explorer;
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
@@ -105,33 +104,37 @@ public class ExplorerPanel extends JPanel {
         actionsPanel.add(illnessButton);
         actionsPanel.add(gatherButton);
 
+        // Acciones de los botones
         eatButton.addActionListener(e -> {
             explorer.eat();
-            energyBar.updateBatteryLevel(explorer.getEnergy());
-            repaint();
+            updateBars();
+        });
+
+        exploreButton.addActionListener(e -> {
+            explorer.explore(map);
+            updateBars();
         });
 
         accidentButton.addActionListener(e -> {
             explorer.accident();
-            energyBar.updateBatteryLevel(explorer.getEnergy());
-            healthBar.updateBatteryLevel(explorer.getHealth());
-            repaint();
+            updateBars();
         });
 
         illnessButton.addActionListener(e -> {
             explorer.sickness();
-            energyBar.updateBatteryLevel(explorer.getEnergy());
-            healthBar.updateBatteryLevel(explorer.getHealth());
-            repaint();
+            updateBars();
         });
 
         moveButton.addActionListener(e -> {
             try {
                 targetX = Integer.parseInt(x.getText());
                 targetY = Integer.parseInt(y.getText());
-                startMove();
+                System.out.println("Objetivo: (" + targetX + ", " + targetY + ")");
+
+                if(map.isRevealed(targetX,targetY))
+                    startMove();
             } catch (NumberFormatException ex) {
-                System.out.println("Por favor ingrese valores numéricos válidos para X e Y.");
+                System.out.println("Por favor, ingrese valores numéricos válidos para X e Y.");
             }
         });
 
@@ -146,28 +149,26 @@ public class ExplorerPanel extends JPanel {
     }
 
     private void startMove() {
-        int deltaX = targetX - explorer.getX();
-        int deltaY = targetY - explorer.getY();
-
-        stepX = deltaX / 50;
-        stepY = deltaY / 50;
-
         moveTimer = new Timer(50, e -> moveStep());
         moveTimer.start();
     }
 
     private void moveStep() {
-        int currentX = explorer.getX();
-        int currentY = explorer.getY();
+        // Llamar al método move en el explorador
+        explorer.move(targetX, targetY);
+        updateBars();
 
-        if (Math.abs(currentX - targetX) > Math.abs(stepX) || Math.abs(currentY - targetY) > Math.abs(stepY)) {
-            explorer.setX(currentX + stepX);
-            explorer.setY(currentY + stepY);
-            repaint();
-        } else {
-            explorer.setX(targetX);
-            explorer.setY(targetY);
+        repaint();
+
+        // Detener el timer si el explorador ha llegado a la posición objetivo
+        if (explorer.getX() == targetX && explorer.getY() == targetY) {
+            System.out.println("Posición final: (" + explorer.getX() + ", " + explorer.getY() + ")");
             moveTimer.stop();
         }
+    }
+
+    private void updateBars() {
+        energyBar.updateBatteryLevel(explorer.getEnergy());
+        healthBar.updateBatteryLevel(explorer.getHealth());
     }
 }

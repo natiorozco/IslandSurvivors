@@ -1,8 +1,10 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import utils.MapPanel;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,11 +21,11 @@ public class Explorer extends Character{
 
     public Explorer(GamePanel gp) {
         super(gp);
-
         this.x=10;
         this.y=10;
         explorationLevel=0;
     }
+
 
 
 
@@ -48,8 +50,15 @@ public class Explorer extends Character{
         }
     }
 
-    public void explore(){
-        //descubrir mas tiles del mapa ??
+    public void explore(MapPanel map){
+        map.revealTile(this.getX()+1,this.getY());
+        map.revealTile(this.getX()+1,this.getY()+1);
+        map.revealTile(this.getX(),this.getY()+1);
+        map.revealTile(this.getX()-1,this.getY()+1);
+        map.revealTile(this.getX()-1,this.getY());
+        map.revealTile(this.getX()-1,this.getY()-1);
+        map.revealTile(this.getX(),this.getY()-1);
+        map.revealTile(this.getX()+1,this.getY()-1);
         this.reduceEnergy(randomInRange);
     }
 
