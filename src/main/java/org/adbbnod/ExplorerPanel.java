@@ -33,7 +33,7 @@ public class ExplorerPanel extends JPanel {
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(245, 245, 245));
         this.setBorder(new LineBorder(new Color(100, 100, 100), 1, true));
-
+        title.setText("EXPLORADOR | Posición: (" + explorer.getX() + "," + explorer.getY() + ")");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -133,6 +133,8 @@ public class ExplorerPanel extends JPanel {
 
                 if(map.isRevealed(targetX,targetY))
                     startMove();
+
+                title.setText("EXPLORADOR | Posición: (" + explorer.getX() + "," + explorer.getY() + ")");
             } catch (NumberFormatException ex) {
                 System.out.println("Por favor, ingrese valores numéricos válidos para X e Y.");
             }

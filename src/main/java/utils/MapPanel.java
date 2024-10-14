@@ -62,7 +62,7 @@ public class MapPanel extends JPanel {
 
         // Dibuja los personajes en sus posiciones
         for (Character character : characters) {
-            drawCharacter(g, character, 0); // Aquí puedes pasar el índice del sprite si tienes diferentes estados
+            drawCharacter(g, character, 2); // Aquí puedes pasar el índice del sprite si tienes diferentes estados
         }
     }
 
@@ -90,6 +90,13 @@ public class MapPanel extends JPanel {
             fog[y][x] = false;
             repaint(); // Redibuja el mapa después de revelar un tile
         }
+    }
+
+    public void spawnAnimal(){
+    }
+
+    public void spawnResource(){
+
     }
 
     public boolean isRevealed(int x, int y){

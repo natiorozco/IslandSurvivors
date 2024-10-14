@@ -53,12 +53,12 @@ public class main {
         explorer.setY(7);
         hunter.setX(8);
         hunter.setY(9);
-        healer.setX(9);
-        healer.setY(10);
+        healer.setX(10);
+        healer.setY(9);
         builder.setX(7);
         builder.setY(10);
         gatherer.setX(9);
-        gatherer.setY(9);
+        gatherer.setY(10);
         scientist.setX(8);
         scientist.setY(8);
 
@@ -71,12 +71,12 @@ public class main {
         mapPanel.addCharacter(scientist);
 
         // Paneles de personajes
-        JPanel explorerPanel = new ExplorerPanel(explorer);
-        JPanel hunterPanel = new HunterPanel(hunter);
-        JPanel healerPanel = new HealerPanel(healer);
-        JPanel builderPanel = new BuilderPanel(builder);
-        JPanel gathererPanel = new GathererPanel(gatherer);
-        JPanel scientistPanel = new ScientistPanel(scientist);
+        JPanel explorerPanel = new ExplorerPanel(explorer, mapPanel);
+        JPanel hunterPanel = new HunterPanel(hunter, mapPanel);
+        JPanel healerPanel = new HealerPanel(healer, mapPanel);
+        JPanel builderPanel = new BuilderPanel(builder, mapPanel);
+        JPanel gathererPanel = new GathererPanel(gatherer, mapPanel);
+        JPanel scientistPanel = new ScientistPanel(scientist, mapPanel);
 
         JPanel[] characterPanels = {
                 explorerPanel, healerPanel,
@@ -103,36 +103,38 @@ public class main {
         toggleButton.addActionListener(new ActionListener() {
             private boolean isVisible = false;
 
-                mapPanel.revealTile(7, 7);
-                mapPanel.revealTile(7, 8);
-                mapPanel.revealTile(7, 9);
-                mapPanel.revealTile(7, 10);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isVisible = !isVisible;
+                menuPanel.setVisible(isVisible);
+                splitPane.setDividerLocation(isVisible ? 50 : 0);
+            }
+        });
 
-                mapPanel.revealTile(8, 7);
-                mapPanel.revealTile(8, 8);
-                mapPanel.revealTile(8, 9);
-                mapPanel.revealTile(8, 10);
+        mapPanel.revealTile(7, 7);
+        mapPanel.revealTile(7, 8);
+        mapPanel.revealTile(7, 9);
+        mapPanel.revealTile(7, 10);
 
-                mapPanel.revealTile(9, 7);
-                mapPanel.revealTile(9, 8);
-                mapPanel.revealTile(9, 9);
-                mapPanel.revealTile(9, 10);
+        mapPanel.revealTile(8, 7);
+        mapPanel.revealTile(8, 8);
+        mapPanel.revealTile(8, 9);
+        mapPanel.revealTile(8, 10);
 
-                mapPanel.revealTile(10, 7);
-                mapPanel.revealTile(10, 8);
-                mapPanel.revealTile(10, 9);
-                mapPanel.revealTile(10, 10);
+        mapPanel.revealTile(9, 7);
+        mapPanel.revealTile(9, 8);
+        mapPanel.revealTile(9, 9);
+        mapPanel.revealTile(9, 10);
 
+        mapPanel.revealTile(10, 7);
+        mapPanel.revealTile(10, 8);
+        mapPanel.revealTile(10, 9);
+        mapPanel.revealTile(10, 10);
 
-                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                buttonPanel.add(toggleButton);
-
-                buttonPanel.setOpaque(false);
-                gamePanel.add(buttonPanel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(toggleButton);
-        buttonPanel.add(revealButton);
+
         buttonPanel.setOpaque(false);
         gamePanel.add(buttonPanel, BorderLayout.NORTH);
 
