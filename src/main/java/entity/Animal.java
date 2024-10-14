@@ -1,10 +1,24 @@
 package entity;
 
+import org.adbbnod.GamePanel;
+
 public class Animal extends Entity{
     private String type;
     private int strength;
     private int huntDifficulty;
     private int foodGained;
+    private String path;
+    private GamePanel gp;
+
+    public Animal(String type, int strength, int huntDifficulty, int foodGained, String path, GamePanel gp) {
+        this.type = type;
+        this.strength = strength;
+        this.huntDifficulty = huntDifficulty;
+        this.foodGained = foodGained;
+        this.path=path;
+        loadSprite(path, 32, 32);
+        this.gp = gp;
+    }
 
     public String getType() {
         return type;

@@ -1,5 +1,6 @@
 package org.adbbnod;
 
+import entity.Character;
 import utils.*;
 import entity.*;
 
@@ -7,11 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class main {
     public static void main(String[] args) throws Exception {
         // Cargar el mapa
-        MapLoader mapLoader = new MapLoader("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\maps\\mapaFinal.json");
+        MapLoader mapLoader = new MapLoader("C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\maps\\mapaFinal.json");
         MapPanel mapPanel = new MapPanel(mapLoader);
 
         // Definir dimensiones del mapa
@@ -40,13 +42,17 @@ public class main {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(gameContainer, BorderLayout.CENTER);
 
+        ArrayList<Resource> generalInventory = new ArrayList<Resource>();
+
         // Inicialización de personajes
-        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png"); // Nobleman
-        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png"); // Peasant
-        Healer healer = new Healer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png"); // Oldwoman
-        Builder builder = new Builder(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniWorker.png"); // Worker
-        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png"); // Villager
-        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniQueen.png"); // Queen
+        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory); // Nobleman
+        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory); // Peasant
+        Healer healer = new Healer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png", generalInventory); // Oldwoman
+        Builder builder = new Builder(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniWorker.png", generalInventory); // Worker
+        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png", generalInventory); // Villager
+        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniQueen.png", generalInventory); // Queen
+
+
 
         // Establecer coordenadas iniciales
         explorer.setX(7);
@@ -83,7 +89,9 @@ public class main {
                 builderPanel, gathererPanel, scientistPanel, hunterPanel
         };
 
-        GodPanel godPanel = new GodPanel();
+        Character[] characters = {explorer,healer,builder,gatherer,scientist,hunter};
+
+        GodPanel godPanel = new GodPanel(characters, mapPanel, gamePanel);
 
         // Panel del menú
         MenuPanel menuPanel = new MenuPanel(characterPanels, godPanel);

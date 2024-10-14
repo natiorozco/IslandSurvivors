@@ -2,14 +2,15 @@ package entity;
 
 import org.adbbnod.GamePanel;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import entity.Resource;
 
 public class Healer extends Character{
     int healLevel;
 
-    public Healer(GamePanel gp, String path) {
-        super(gp, path, 32, 32);
+    public Healer(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
+        super(gp, path, 32, 32, mainInventory);
     }
 
     @Override

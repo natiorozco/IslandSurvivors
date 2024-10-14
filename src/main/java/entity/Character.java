@@ -23,12 +23,13 @@ public abstract class Character extends Entity{
     int rand_int1 = rand.nextInt(2);
 
 
-    public Character(GamePanel gp, String spritePath, int spriteWidth, int spriteHeight){
+    public Character(GamePanel gp, String spritePath, int spriteWidth, int spriteHeight, ArrayList<Resource> mainInventory){
         this.gp=gp;
         this.health=100;
         this.energy=100;
         this.inventory=new ArrayList<Resource>();
         loadSprite(spritePath, spriteWidth, spriteHeight);
+        this.inventory=mainInventory;
     }
 
     public int getSickness() {
@@ -65,9 +66,8 @@ public abstract class Character extends Entity{
 
     public abstract void act();
     public abstract void eat();
-    public void rest(){
+    public abstract void rest();
 
-    };
     public void reduceEnergy(int quantity){
         if ((this.getEnergy()-quantity) <= 0){
             this.energy=0;

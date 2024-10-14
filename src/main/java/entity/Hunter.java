@@ -2,6 +2,7 @@ package entity;
 
 import org.adbbnod.GamePanel;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -14,8 +15,8 @@ public class Hunter extends Character{
     int randomInRange = random.nextInt(max - min + 1) + min;
 
 
-    public Hunter(GamePanel gp, String path) {
-        super(gp, path, 32, 32);
+    public Hunter(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
+        super(gp, path, 32, 32, mainInventory);
     }
 
     @Override

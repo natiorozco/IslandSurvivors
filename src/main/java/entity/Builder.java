@@ -2,13 +2,14 @@ package entity;
 
 import org.adbbnod.GamePanel;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Builder extends Character{
     int constructionLevel;
 
-    public Builder(GamePanel gp, String path) {
-        super(gp, path, 32, 32);
+    public Builder(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
+        super(gp, path, 32, 32, mainInventory);
     }
 
     @Override
@@ -30,6 +31,13 @@ public class Builder extends Character{
                 break;
             }
 
+        }
+    }
+
+    @Override
+    public void rest() {
+        if (this.getShelter()!=null){
+            this.increaseEnergy(20);
         }
     }
 

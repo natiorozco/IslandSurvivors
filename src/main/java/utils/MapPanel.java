@@ -6,16 +6,24 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import entity.Animal;
 import entity.Character;
+import entity.Resource;
 
 public class MapPanel extends JPanel {
     private MapLoader mapLoader;
     private boolean[][] fog;
     private List<Character> characters;
+    private List<Animal> animals;
+    private List<Resource> resources;
 
     public MapPanel(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.characters = new ArrayList<>();
+        this.animals = new ArrayList<>();
+        this.resources = new ArrayList<>();
 
         setPreferredSize(new Dimension(mapLoader.getMap(0)[0].length * mapLoader.getTileWidth(),
                 mapLoader.getMap(0).length * mapLoader.getTileHeight()));
@@ -33,6 +41,14 @@ public class MapPanel extends JPanel {
 
     public void addCharacter(Character character) {
         characters.add(character);
+    }
+
+    public void addAnimals(Animal animal) {
+        animals.add(animal);
+    }
+
+    public void addResources(Resource resource) {
+        resources.add(resource);
     }
 
     @Override
@@ -64,6 +80,33 @@ public class MapPanel extends JPanel {
         for (Character character : characters) {
             drawCharacter(g, character, 2); // Aquí puedes pasar el índice del sprite si tienes diferentes estados
         }
+
+        for (Animal animal: animals){
+            if (Objects.equals(animal.getType(), "Oso")){
+                spawnAnimal(g,animal,1);
+            } else if (Objects.equals(animal.getType(), "Caballo")){
+                spawnAnimal(g,animal,7);
+            }else if (Objects.equals(animal.getType(), "Oveja")){
+                spawnAnimal(g,animal,22);
+            } else if(Objects.equals(animal.getType(), "Pollo")){
+                spawnAnimal(g,animal, 37);
+            }
+        }
+
+        for (Resource resource : resources){
+            if (Objects.equals(resource.getType(), "vegetal")){
+                spawnResource(g,resource,49);
+            } else if(Objects.equals(resource.getType(), "planta medicinal")){
+                spawnResource(g, resource, 12);
+            } else if (Objects.equals(resource.getType(), "madera")){
+                spawnResource(g,resource, 5);
+            } else if (Objects.equals(resource.getType(), "piedra")) {
+                spawnResource(g, resource, 2);
+            }   else if(Objects.equals(resource.getType(), "liana")){
+                spawnResource(g, resource, 1);
+            }
+            }
+
     }
 
     private void drawCharacter(Graphics g, Character character, int indx) {
@@ -73,6 +116,7 @@ public class MapPanel extends JPanel {
         int y = character.getY() * mapLoader.getTileHeight();
         g.drawImage(spriteToDraw, x, y, null);
     }
+
 
     private void drawFog(Graphics g, int tileWidth, int tileHeight) {
         g.setColor(new Color(0, 0, 0, 200));
@@ -92,11 +136,18 @@ public class MapPanel extends JPanel {
         }
     }
 
-    public void spawnAnimal(){
+    public void spawnAnimal(Graphics g, Animal animal, int indx){
+        BufferedImage spriteToDraw = animal.getSprite(indx);
+        int x = animal.getX() * mapLoader.getTileWidth();
+        int y = animal.getY() * mapLoader.getTileHeight();
+        g.drawImage(spriteToDraw, x, y, null);
     }
 
-    public void spawnResource(){
-
+    public void spawnResource(Graphics g, Resource resource,int indx){
+        BufferedImage spriteToDraw = resource.getSprite(indx);
+        int x = resource.getX() * mapLoader.getTileWidth();
+        int y = resource.getY() * mapLoader.getTileHeight();
+        g.drawImage(spriteToDraw, x, y, null);
     }
 
     public boolean isRevealed(int x, int y){
