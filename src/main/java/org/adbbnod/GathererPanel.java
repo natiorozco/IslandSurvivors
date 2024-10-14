@@ -110,6 +110,12 @@ public class GathererPanel extends JPanel {
             repaint();
         });
 
+        gatherButton.addActionListener(e -> {
+            gatherer.gather(map);
+            energyBar.updateBatteryLevel(gatherer.getEnergy());
+            repaint();
+        });
+
         accidentButton.addActionListener(e -> {
             gatherer.accident();
             energyBar.updateBatteryLevel(gatherer.getEnergy());

@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import utils.MapPanel;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -31,16 +32,22 @@ public class Gatherer extends Character{
 
     }
 
-    public void gather(Resource resource){
-        if (Objects.equals(resource.getType(), "vegetal")){
+    public void gather(MapPanel map){
+        Resource r = map.resourceHere(this.x,this.y);
+        this.reduceEnergy(5);
+        this.getInventory().add(r);
+        r.setX(900);
+        r.setY(900);
+
+        if (Objects.equals(r.getType(), "vegetal")){
             this.reduceEnergy(10);
-        } else if (Objects.equals(resource.getType(), "planta medicinal")){
+        } else if (Objects.equals(r.getType(), "planta medicinal")){
             this.reduceEnergy(15);
-        } else if (Objects.equals(resource.getType(), "madera")){
+        } else if (Objects.equals(r.getType(), "madera")){
             this.reduceEnergy(17);
-        } else if (Objects.equals(resource.getType(), "piedra")){
+        } else if (Objects.equals(r.getType(), "piedra")){
             this.reduceEnergy(19);
-        } else if(Objects.equals(resource.getType(), "liana")){
+        } else if(Objects.equals(r.getType(), "liana")){
             this.reduceEnergy(20);
         }
     }
