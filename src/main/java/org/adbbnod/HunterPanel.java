@@ -38,6 +38,7 @@ public class HunterPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Título
+        title.setText("CAZADOR | (" + hunter.getX() + "," + hunter.getY() + ")");
         title.setFont(new Font("Arial", Font.BOLD, 16));
         title.setForeground(new Color(50, 50, 150));
         gbc.gridx = 0;
@@ -127,6 +128,7 @@ public class HunterPanel extends JPanel {
                 targetY = Integer.parseInt(y.getText());
                 if(map.isRevealed(targetX,targetY))
                     startMove();
+                title.setText("CAZADOR | (" + hunter.getX() + "," + hunter.getY() + ")");
             } catch (NumberFormatException ex) {
             }
         });

@@ -38,6 +38,7 @@ public class HealerPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Título
+        title.setText("SANADOR | (" + healer.getX() + "," + healer.getY() + ")");
         title.setFont(new Font("Arial", Font.BOLD, 16));
         title.setForeground(new Color(50, 50, 150));
         gbc.gridx = 0;
@@ -127,6 +128,7 @@ public class HealerPanel extends JPanel {
                 targetY = Integer.parseInt(y.getText());
                 if(map.isRevealed(targetX,targetY))
                     startMove();
+                title.setText("SANADOR | (" + healer.getX() + "," + healer.getY() + ")");
             } catch (NumberFormatException ex) {
             }
         });
