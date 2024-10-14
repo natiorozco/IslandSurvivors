@@ -14,7 +14,7 @@ public class Resource extends Entity{
         this.amount=amount;
         this.path = path;
         this.gp=gp;
-        loadSprite(path, 32, 32);
+        loadSprite(path, 16, 16);
     }
     public String getType() {
         return type;

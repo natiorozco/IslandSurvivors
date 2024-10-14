@@ -95,15 +95,15 @@ public class MapPanel extends JPanel {
 
         for (Resource resource : resources){
             if (Objects.equals(resource.getType(), "vegetal")){
-                spawnResource(g,resource,49);
+                spawnResource(g,resource,48);
             } else if(Objects.equals(resource.getType(), "planta medicinal")){
-                spawnResource(g, resource, 12);
-            } else if (Objects.equals(resource.getType(), "madera")){
-                spawnResource(g,resource, 5);
-            } else if (Objects.equals(resource.getType(), "piedra")) {
-                spawnResource(g, resource, 2);
-            }   else if(Objects.equals(resource.getType(), "liana")){
                 spawnResource(g, resource, 1);
+            } else if (Objects.equals(resource.getType(), "madera")){
+                spawnResource(g,resource, 1);
+            } else if (Objects.equals(resource.getType(), "piedra")) {
+                spawnResource(g, resource, 4);
+            }   else if(Objects.equals(resource.getType(), "liana")){
+                spawnResource(g, resource, 0);
             }
             }
 
