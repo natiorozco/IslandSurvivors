@@ -115,6 +115,11 @@ public class ExplorerPanel extends JPanel {
             updateBars();
         });
 
+        gatherButton.addActionListener(e -> {
+            explorer.gather(map);
+            updateBars();
+        });
+
         accidentButton.addActionListener(e -> {
             explorer.accident();
             updateBars();

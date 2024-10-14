@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import entity.Animal;
 import entity.Character;
+import entity.Entity;
 import entity.Resource;
 
 public class MapPanel extends JPanel {
@@ -159,4 +160,21 @@ public class MapPanel extends JPanel {
         return false;
     }
 
+    public Animal animalHere(int x, int y){
+        for (Animal animal: animals){
+            if (animal.getX()==x && animal.getY()==y){
+                return animal;
+            }
+        }
+        return null;
+    }
+
+    public Resource resourceHere(int x, int y){
+        for (Resource resource: resources){
+            if (resource.getX()==x && resource.getY()==y){
+                return resource;
+            }
+        }
+        return null;
+    }
 }

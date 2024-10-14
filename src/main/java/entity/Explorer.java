@@ -64,9 +64,12 @@ public class Explorer extends Character{
         this.reduceEnergy(randomInRange);
     }
 
-    public void gather(Resource resource){
+    public void gather(MapPanel map){
+        Resource r = map.resourceHere(this.x,this.y);
         this.reduceEnergy(5);
-        this.getInventory().add(resource);
+        this.getInventory().add(r);
+        r.setX(900);
+        r.setY(900);
     }
 
     public void rest(){

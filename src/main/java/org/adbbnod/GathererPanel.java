@@ -124,6 +124,8 @@ public class GathererPanel extends JPanel {
             repaint();
         });
 
+
+
         moveButton.addActionListener(e -> {
             try {
                 targetX = Integer.parseInt(x.getText());
