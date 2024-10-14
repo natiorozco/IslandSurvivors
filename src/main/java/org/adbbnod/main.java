@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class main {
     public static void main(String[] args) throws Exception {
 
-        MapLoader mapLoader = new MapLoader("C:\\Users\\adbyb\\OneDrive\\Documentos\\GitHub\\IslandSurvivors\\maps\\mapaFinal.json");
+        MapLoader mapLoader = new MapLoader("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\maps\\mapaFinal.json");
         MapPanel mapPanel = new MapPanel(mapLoader);
 
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
