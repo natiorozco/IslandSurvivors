@@ -6,7 +6,7 @@ import entity.Character;
 import entity.Explorer;
 
 public class GamePanel extends JPanel implements Runnable{
-    public Explorer explorer;
+
 
     // Global variables:
 

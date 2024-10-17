@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import utils.MapPanel;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -37,28 +38,39 @@ public class Hunter extends Character{
         }
     }
 
-    public void defend(Character character, Animal animal){
-        if(Objects.equals(animal.getType(), "grande")){
-            this.reduceEnergy(25);
-            this.reduceHealth(30);
-            animal.beHunted(this);
-        } else if (Objects.equals(animal.getType(),"pequeno")) {
+    public void defend(MapPanel map){
+        Animal a = map.animalHere(this.x,this.y);
+        a.setX(900);
+        a.setY(900);
 
-            this.reduceEnergy(25);
-            this.reduceHealth(15);
-            animal.beHunted(this);
-        }
     }
 
-    public void hunt(Animal animal){
-        if (Objects.equals(animal.getType(), "grande")){
-            this.reduceEnergy(30);
-            this.reduceHealth(randomInRange);
-            animal.beHunted(this);
-        }
-        else if (Objects.equals(animal.getType(), "pequeno")){
-            this.reduceEnergy(20);
-            animal.beHunted(this);
+    public void hunt(MapPanel map){
+
+        Animal a = map.animalHere(this.x,this.y);
+        if (a != null) {
+            Resource r = new Resource("carne", a.getFoodGained(),"C:/Users/natal/Desktop/sage/IslandSurvivors/sprites/resources/Food.png", gp);
+            this.getInventory().add(r);
+            a.setX(900);
+            a.setY(900);
+
+            if (Objects.equals(a.getType(), "Oso")){
+                this.reduceEnergy(30);
+                this.reduceHealth(randomInRange);
+                a.beHunted(this);
+            }
+            else if (Objects.equals(a.getType(), "Caballo")){
+                this.reduceEnergy(30);
+                this.reduceHealth(randomInRange);
+                a.beHunted(this);
+            }
+            else if (Objects.equals(a.getType(), "Oveja")){
+                this.reduceEnergy(20);
+                a.beHunted(this);
+            }else if (Objects.equals(a.getType(), "Pollo")){
+                this.reduceEnergy(20);
+                a.beHunted(this);
+            }
         }
 
     }

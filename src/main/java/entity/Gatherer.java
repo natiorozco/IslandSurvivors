@@ -34,6 +34,8 @@ public class Gatherer extends Character{
 
     public void gather(MapPanel map){
         Resource r = map.resourceHere(this.x,this.y);
+
+        if (r!=null){
         this.reduceEnergy(5);
         this.getInventory().add(r);
         r.setX(900);
@@ -49,7 +51,7 @@ public class Gatherer extends Character{
             this.reduceEnergy(19);
         } else if(Objects.equals(r.getType(), "liana")){
             this.reduceEnergy(20);
-        }
+        }}
     }
 
     public void rest(){

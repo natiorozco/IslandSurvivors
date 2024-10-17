@@ -177,4 +177,13 @@ public class MapPanel extends JPanel {
         }
         return null;
     }
+
+    public Character characterHere(int x, int y){
+        for (Character character: characters){
+            if (character.getX()==x && character.getY()==y){
+                return character;
+            }
+        }
+        return null;
+    }
 }

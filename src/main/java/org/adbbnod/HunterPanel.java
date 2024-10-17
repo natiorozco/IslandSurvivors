@@ -122,6 +122,13 @@ public class HunterPanel extends JPanel {
             repaint();
         });
 
+        huntButton.addActionListener(e -> {
+            hunter.hunt(map);
+            energyBar.updateBatteryLevel(hunter.getEnergy());
+            healthBar.updateBatteryLevel(hunter.getHealth());
+            repaint();
+        });
+
         moveButton.addActionListener(e -> {
             try {
                 targetX = Integer.parseInt(x.getText());

@@ -133,16 +133,16 @@ public class GodPanel extends JPanel{
     public Animal randomAnimal(){
         switch (rand.nextInt(4)){
             case 0:
-                return (new Animal("Oso", 30, 30, 5, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\MiniBear_RoseGold.png", this.gp));
+                return (new Animal("Oso", 20, 30, 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\MiniBear_RoseGold.png", this.gp));
 
             case 1:
-                return new Animal("Caballo", 20, 20, 4,"C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png" ,this.gp);
+                return new Animal("Caballo", 15, 20, 1,"C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png" ,this.gp);
 
             case 2:
-                return new Animal("Oveja", 10, 10, 3, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png", this.gp);
+                return new Animal("Oveja", 10, 10, 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png", this.gp);
 
             case 3:
-                return new Animal("Pollo", 5, 5, 2, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png",this.gp);
+                return new Animal("Pollo", 5, 5, 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png",this.gp);
 
         }
 

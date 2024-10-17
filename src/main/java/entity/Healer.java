@@ -5,6 +5,7 @@ import org.adbbnod.GamePanel;
 import java.util.ArrayList;
 import java.util.Objects;
 import entity.Resource;
+import utils.MapPanel;
 
 public class Healer extends Character{
     int healLevel;
@@ -36,35 +37,37 @@ public class Healer extends Character{
     }
 
 
-    public void heal(Character character){
+    public void heal(MapPanel map){
+        Character c = map.characterHere(this.x ,this.y);
+        if (c!=null) {
 
-        for (Resource resource: getInventory()){
-            if (Objects.equals(resource.getType(),"medicina")){
-                character.increaseHealth(20);
-                character.setSickness(0);
-                this.getInventory().remove(resource);
-                return;
-            }
-        }
-
-        for (Resource resource: getInventory()){
-            if (Objects.equals(resource.getType(), "planta medicinal")){
-
-                this.getInventory().remove(resource);
-                if (character.getHealth()<=80){
-                character.increaseHealth(20);
-                character.setSickness(0);}
-                else if (character.getHealth()>80){
-                    character.setHealth(100);
-                    character.setSickness(0);
+            for (Resource resource : getInventory()) {
+                if (Objects.equals(resource.getType(), "medicina")) {
+                    c.increaseHealth(20);
+                    c.setSickness(0);
+                    this.getInventory().remove(resource);
+                    return;
                 }
+            }
 
-                this.reduceEnergy(15);
+            for (Resource resource : getInventory()) {
+                if (Objects.equals(resource.getType(), "planta medicinal")) {
 
-                break;
+                    this.getInventory().remove(resource);
+                    if (c.getHealth() <= 80) {
+                        c.increaseHealth(20);
+                        c.setSickness(0);
+                    } else if (c.getHealth() > 80) {
+                        c.setHealth(100);
+                        c.setSickness(0);
+                    }
+
+                    this.reduceEnergy(15);
+
+                    break;
+                }
             }
         }
-
 
     }
 

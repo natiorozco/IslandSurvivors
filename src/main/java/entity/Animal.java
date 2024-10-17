@@ -53,10 +53,10 @@ public class Animal extends Entity{
     }
 
     public void attack(Character character){
-
+        character.reduceHealth(this.strength);
     }
 
     public void beHunted(Hunter hunter){
-
+            this.type="cazado";
     }
 }

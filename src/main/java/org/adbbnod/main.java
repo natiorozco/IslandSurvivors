@@ -44,6 +44,7 @@ public class main {
 
         ArrayList<Resource> generalInventory = new ArrayList<Resource>();
 
+
         // Inicialización de personajes
         Explorer explorer = new Explorer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory); // Nobleman
         Hunter hunter = new Hunter(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory); // Peasant
