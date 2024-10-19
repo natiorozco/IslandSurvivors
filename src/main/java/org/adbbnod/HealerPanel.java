@@ -122,6 +122,13 @@ public class HealerPanel extends JPanel {
             repaint();
         });
 
+        healButton.addActionListener(e -> {
+            healer.heal(map);
+            energyBar.updateBatteryLevel(healer.getEnergy());
+            healthBar.updateBatteryLevel(healer.getHealth());
+            repaint();
+        });
+
         moveButton.addActionListener(e -> {
             try {
                 targetX = Integer.parseInt(x.getText());

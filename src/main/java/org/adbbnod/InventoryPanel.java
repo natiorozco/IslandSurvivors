@@ -17,8 +17,9 @@ public class InventoryPanel extends JPanel {
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         for (Resource resource : inventory) {
+            if (resource!=null){
             JLabel resourceLabel = new JLabel(resource.getType());
-            this.add(resourceLabel);
+            this.add(resourceLabel);}
         }
 
         this.revalidate();  // Recalcular el diseño

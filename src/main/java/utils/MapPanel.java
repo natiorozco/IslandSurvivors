@@ -186,4 +186,13 @@ public class MapPanel extends JPanel {
         }
         return null;
     }
+
+    public Character characterToHealHere(int x, int y){
+        for (Character character: characters){
+            if (character.getX()==(x+1) && character.getY()==y){
+                return character;
+            }
+        }
+        return null;
+    }
 }

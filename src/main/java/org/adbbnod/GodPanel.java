@@ -34,7 +34,7 @@ public class GodPanel extends JPanel{
     Random rand2 = new Random();
     int rand_int2 = rand2.nextInt(6);
 
-    public GodPanel(Character[] characters, MapPanel map, GamePanel gp) {
+    public GodPanel(Character[] characters, MapPanel map, GamePanel gp, ExplorerPanel explorerPanel, BuilderPanel builderPanel, GathererPanel gathererPanel, HealerPanel healerPanel, HunterPanel hunterPanel, ScientistPanel scientistPanel) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Color.WHITE);
@@ -101,6 +101,26 @@ public class GodPanel extends JPanel{
                     character.rest();
                     repaint();
                 }
+
+                explorerPanel.energyBar.updateBatteryLevel(explorerPanel.explorer.getEnergy());
+                explorerPanel.healthBar.updateBatteryLevel(explorerPanel.explorer.getHealth());
+
+                builderPanel.energyBar.updateBatteryLevel(builderPanel.builder.getEnergy());
+                builderPanel.healthBar.updateBatteryLevel(builderPanel.builder.getHealth());
+
+                gathererPanel.energyBar.updateBatteryLevel(gathererPanel.gatherer.getEnergy());
+                gathererPanel.healthBar.updateBatteryLevel(gathererPanel.gatherer.getHealth());
+
+                healerPanel.energyBar.updateBatteryLevel(healerPanel.healer.getEnergy());
+                healerPanel.healthBar.updateBatteryLevel(healerPanel.healer.getHealth());
+
+                hunterPanel.energyBar.updateBatteryLevel(hunterPanel.hunter.getEnergy());
+                hunterPanel.healthBar.updateBatteryLevel(hunterPanel.hunter.getHealth());
+
+                scientistPanel.energyBar.updateBatteryLevel(scientistPanel.scientist.getEnergy());
+                scientistPanel.healthBar.updateBatteryLevel(scientistPanel.scientist.getHealth());
+
+
 
             }
         });

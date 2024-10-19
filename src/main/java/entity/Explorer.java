@@ -68,11 +68,12 @@ public class Explorer extends Character{
 
     public void gather(MapPanel map){
         Resource r = map.resourceHere(this.x,this.y);
+        if (r!=null){
         this.reduceEnergy(5);
         this.getInventory().add(r);
         r.setX(900);
         r.setY(900);
-        inventoryPanel.updateInventory();
+        inventoryPanel.updateInventory();}
     }
 
     public void rest(){

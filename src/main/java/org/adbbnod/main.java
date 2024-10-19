@@ -92,7 +92,7 @@ public class main {
 
         Character[] characters = {explorer,healer,builder,gatherer,scientist,hunter};
 
-        GodPanel godPanel = new GodPanel(characters, mapPanel, gamePanel);
+        GodPanel godPanel = new GodPanel(characters, mapPanel, gamePanel, (ExplorerPanel) explorerPanel, (BuilderPanel) builderPanel, (GathererPanel) gathererPanel, (HealerPanel) healerPanel, (HunterPanel) hunterPanel, (ScientistPanel) scientistPanel);
 
         //Panel del inventario
 

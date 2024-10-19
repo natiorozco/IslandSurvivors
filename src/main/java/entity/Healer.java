@@ -40,8 +40,11 @@ public class Healer extends Character{
 
 
     public void heal(MapPanel map){
-        Character c = map.characterHere(this.x ,this.y);
-        if (c!=null) {
+        Character c = map.characterToHealHere(this.x ,this.y);
+
+        if (c==null) {
+            c = this;
+        }
 
             for (Resource resource : getInventory()) {
                 if (Objects.equals(resource.getType(), "medicina")) {
@@ -49,7 +52,7 @@ public class Healer extends Character{
                     c.setSickness(0);
                     this.getInventory().remove(resource);
                     inventoryPanel.updateInventory();
-                    return;
+                    break;
                 }
             }
 
@@ -71,7 +74,7 @@ public class Healer extends Character{
                     break;
                 }
             }
-        }
+
 
     }
 
