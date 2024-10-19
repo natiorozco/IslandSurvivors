@@ -88,7 +88,9 @@ public class GodPanel extends JPanel{
                 for (Character character : characters){
                     if (character.getSickness()==1){
                         character.reduceHealth(10);
+
                         repaint();
+
                     } else if(character.getSickness()==2){
                         character.reduceHealth(20);
                         repaint();
@@ -165,4 +167,5 @@ public class GodPanel extends JPanel{
                 return null;
         }
     }
+
 }

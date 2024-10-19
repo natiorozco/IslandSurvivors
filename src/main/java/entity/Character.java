@@ -2,6 +2,7 @@ package entity;
 
 //import jdk.internal.loader.Resource;
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -19,17 +20,20 @@ public abstract class Character extends Entity{
     private ArrayList<Resource> inventory;
     private Shelter shelter;
 
+    InventoryPanel inventoryPanel;
+
     Random rand = new Random();
     int rand_int1 = rand.nextInt(2);
 
 
-    public Character(GamePanel gp, String spritePath, int spriteWidth, int spriteHeight, ArrayList<Resource> mainInventory){
+    public Character(GamePanel gp, String spritePath, int spriteWidth, int spriteHeight, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel){
         this.gp=gp;
         this.health=100;
         this.energy=100;
         this.inventory=new ArrayList<Resource>();
         loadSprite(spritePath, spriteWidth, spriteHeight);
         this.inventory=mainInventory;
+        this.inventoryPanel = inventoryPanel;
     }
 
     public int getSickness() {

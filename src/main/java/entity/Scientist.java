@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,8 +9,8 @@ import java.util.Objects;
 public class Scientist extends Character{
     int scienceLevel;
     
-    public Scientist(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Scientist(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Scientist extends Character{
                     this.increaseEnergy(10);
                 }
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
@@ -37,11 +39,11 @@ public class Scientist extends Character{
     public void createMedicine(){
         for (Resource resource: this.getInventory()){
             if (Objects.equals(resource.getType(), "planta medicinal")){
-                Resource medicine = new Resource("planta medicinal", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\plantasMedicinales.png", this.gp);
-                medicine.setType("medicina");
+                Resource medicine = new Resource("medicina", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\plantasMedicinales.png", this.gp);
                 this.getInventory().add(medicine);
                 this.getInventory().remove(resource);
                 this.reduceEnergy(15);
+                inventoryPanel.updateInventory();
                 break;
             }
         }

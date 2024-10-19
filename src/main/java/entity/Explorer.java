@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 import utils.MapPanel;
 
 import javax.imageio.ImageIO;
@@ -21,8 +22,8 @@ public class Explorer extends Character{
     int randomInRange = random.nextInt(max - min + 1) + min;
 
 
-    public Explorer(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Explorer(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
         this.x=10;
         this.y=10;
         explorationLevel=0;
@@ -46,6 +47,7 @@ public class Explorer extends Character{
                     this.increaseEnergy(10);
                 }
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
@@ -70,6 +72,7 @@ public class Explorer extends Character{
         this.getInventory().add(r);
         r.setX(900);
         r.setY(900);
+        inventoryPanel.updateInventory();
     }
 
     public void rest(){

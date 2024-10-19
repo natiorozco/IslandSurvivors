@@ -19,7 +19,7 @@ public class ScientistPanel extends JPanel {
     JTextField y = new JTextField(2);
     JButton moveButton = new JButton("Mover");
     JButton eatButton = new JButton("Comer");
-    JButton experimentButton = new JButton("Experimentar");
+    JButton experimentButton = new JButton("Medicamento");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
 
@@ -119,6 +119,13 @@ public class ScientistPanel extends JPanel {
 
         illnessButton.addActionListener(e -> {
             scientist.sickness();
+            energyBar.updateBatteryLevel(scientist.getEnergy());
+            healthBar.updateBatteryLevel(scientist.getHealth());
+            repaint();
+        });
+
+        experimentButton.addActionListener(e -> {
+            scientist.createMedicine();
             energyBar.updateBatteryLevel(scientist.getEnergy());
             healthBar.updateBatteryLevel(scientist.getHealth());
             repaint();

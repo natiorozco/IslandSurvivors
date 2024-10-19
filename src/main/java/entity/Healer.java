@@ -5,13 +5,14 @@ import org.adbbnod.GamePanel;
 import java.util.ArrayList;
 import java.util.Objects;
 import entity.Resource;
+import org.adbbnod.InventoryPanel;
 import utils.MapPanel;
 
 public class Healer extends Character{
     int healLevel;
 
-    public Healer(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Healer(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
     }
 
     @Override
@@ -30,6 +31,7 @@ public class Healer extends Character{
                     this.increaseEnergy(10);
                 }
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
@@ -46,6 +48,7 @@ public class Healer extends Character{
                     c.increaseHealth(20);
                     c.setSickness(0);
                     this.getInventory().remove(resource);
+                    inventoryPanel.updateInventory();
                     return;
                 }
             }
@@ -54,6 +57,7 @@ public class Healer extends Character{
                 if (Objects.equals(resource.getType(), "planta medicinal")) {
 
                     this.getInventory().remove(resource);
+                    inventoryPanel.updateInventory();
                     if (c.getHealth() <= 80) {
                         c.increaseHealth(20);
                         c.setSickness(0);

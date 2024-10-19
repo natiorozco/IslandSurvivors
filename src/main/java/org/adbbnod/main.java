@@ -44,14 +44,14 @@ public class main {
 
         ArrayList<Resource> generalInventory = new ArrayList<Resource>();
 
-
+        InventoryPanel inventoryPanel = new InventoryPanel(generalInventory);
         // Inicialización de personajes
-        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory); // Nobleman
-        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory); // Peasant
-        Healer healer = new Healer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png", generalInventory); // Oldwoman
-        Builder builder = new Builder(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniWorker.png", generalInventory); // Worker
-        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png", generalInventory); // Villager
-        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniQueen.png", generalInventory); // Queen
+        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory, inventoryPanel); // Nobleman
+        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory, inventoryPanel); // Peasant
+        Healer healer = new Healer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png", generalInventory, inventoryPanel); // Oldwoman
+        Builder builder = new Builder(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniWorker.png", generalInventory, inventoryPanel); // Worker
+        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png", generalInventory, inventoryPanel); // Villager
+        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniQueen.png", generalInventory, inventoryPanel); // Queen
 
 
 
@@ -94,6 +94,13 @@ public class main {
 
         GodPanel godPanel = new GodPanel(characters, mapPanel, gamePanel);
 
+        //Panel del inventario
+
+        inventoryPanel.setPreferredSize(new Dimension(100, window.getHeight()));
+        inventoryPanel.setMinimumSize(new Dimension(100, window.getHeight()));
+        inventoryPanel.setMaximumSize(new Dimension(100, window.getHeight()));
+        inventoryPanel.setVisible(false);  // Iniciar oculto
+
         // Panel del menú
         MenuPanel menuPanel = new MenuPanel(characterPanels, godPanel);
         menuPanel.setPreferredSize(new Dimension(50, window.getHeight()));
@@ -107,18 +114,53 @@ public class main {
         splitPane.setEnabled(false);
         splitPane.setDividerSize(0);
 
-        // Botón para mostrar/ocultar el menú
-        JButton toggleButton = new JButton("X");
+        // Botón para mostrar/ocultar el menú God
+        JButton toggleButton = new JButton("God");
         toggleButton.addActionListener(new ActionListener() {
-            private boolean isVisible = false;
+            private boolean isMenuVisible = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                isVisible = !isVisible;
-                menuPanel.setVisible(isVisible);
-                splitPane.setDividerLocation(isVisible ? 50 : 0);
+                isMenuVisible = !isMenuVisible;
+
+                if (isMenuVisible) {
+                    // Mostrar el menú de God, ocultar el inventario si está visible
+                    menuPanel.setVisible(true);
+                    inventoryPanel.setVisible(false);
+                    splitPane.setRightComponent(menuPanel);
+                    splitPane.setDividerLocation(50);  // Ajusta el tamaño del menú
+                } else {
+                    // Ocultar el menú de God
+                    menuPanel.setVisible(false);
+                    splitPane.setDividerLocation(0);  // Cerrar el panel lateral
+                }
             }
         });
+
+        // Botón para mostrar/ocultar el inventario
+        JButton toggleInventoryButton = new JButton("Inventory");
+        toggleInventoryButton.addActionListener(new ActionListener() {
+            private boolean isInventoryVisible = false;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isInventoryVisible = !isInventoryVisible;
+
+                if (isInventoryVisible) {
+                    // Mostrar el inventario, ocultar el menú de God si está visible
+                    inventoryPanel.setVisible(true);
+                    menuPanel.setVisible(false);
+                    splitPane.setRightComponent(inventoryPanel);
+                    splitPane.setDividerLocation(200);  // Ajustar el tamaño del inventario
+                } else {
+                    // Ocultar el inventario
+                    inventoryPanel.setVisible(false);
+                    splitPane.setDividerLocation(0);  // Cerrar el panel lateral
+                }
+            }
+        });
+
+
 
         mapPanel.revealTile(7, 7);
         mapPanel.revealTile(7, 8);
@@ -143,6 +185,7 @@ public class main {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(toggleButton);
+        buttonPanel.add(toggleInventoryButton);
 
         buttonPanel.setOpaque(false);
         gamePanel.add(buttonPanel, BorderLayout.NORTH);

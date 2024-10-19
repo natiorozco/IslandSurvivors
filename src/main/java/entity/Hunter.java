@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 import utils.MapPanel;
 
 import java.util.ArrayList;
@@ -10,14 +11,15 @@ import java.util.Random;
 public class Hunter extends Character{
     private int huntingLevel;
 
+
     Random random = new Random();
     int min = 10;
     int max = 20;
     int randomInRange = random.nextInt(max - min + 1) + min;
 
 
-    public Hunter(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Hunter(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
     }
 
     @Override
@@ -32,16 +34,39 @@ public class Hunter extends Character{
                 resource.useResource(resource.getAmount());
                 this.increaseEnergy(20);
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
         }
+
     }
 
     public void defend(MapPanel map){
         Animal a = map.animalHere(this.x,this.y);
         a.setX(900);
         a.setY(900);
+
+        if (Objects.equals(a.getType(), "Oso")){
+            this.reduceEnergy(25);
+            this.reduceHealth(30);
+
+        }
+        else if (Objects.equals(a.getType(), "Caballo")){
+            this.reduceEnergy(25);
+            this.reduceHealth(20);
+
+        }
+        else if (Objects.equals(a.getType(), "Oveja")){
+            this.reduceEnergy(25);
+            this.reduceHealth(15);
+
+        }else if (Objects.equals(a.getType(), "Pollo")){
+            this.reduceEnergy(25);
+            this.reduceHealth(15);
+
+        }
+
 
     }
 
@@ -51,6 +76,7 @@ public class Hunter extends Character{
         if (a != null) {
             Resource r = new Resource("carne", a.getFoodGained(),"C:/Users/natal/Desktop/sage/IslandSurvivors/sprites/resources/Food.png", gp);
             this.getInventory().add(r);
+            inventoryPanel.updateInventory();
             a.setX(900);
             a.setY(900);
 

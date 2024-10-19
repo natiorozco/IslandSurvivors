@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 import utils.MapPanel;
 
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.Objects;
 public class Gatherer extends Character{
     private int gatheringLevel;
 
-    public Gatherer(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Gatherer(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
     }
 
     @Override
@@ -25,6 +26,7 @@ public class Gatherer extends Character{
                 resource.useResource(resource.getAmount());
                 this.increaseEnergy(15);
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
@@ -52,6 +54,7 @@ public class Gatherer extends Character{
         } else if(Objects.equals(r.getType(), "liana")){
             this.reduceEnergy(20);
         }}
+        inventoryPanel.updateInventory();
     }
 
     public void rest(){

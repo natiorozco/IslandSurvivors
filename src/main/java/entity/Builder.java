@@ -1,6 +1,7 @@
 package entity;
 
 import org.adbbnod.GamePanel;
+import org.adbbnod.InventoryPanel;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,8 +9,8 @@ import java.util.Objects;
 public class Builder extends Character{
     int constructionLevel;
 
-    public Builder(GamePanel gp, String path, ArrayList<Resource> mainInventory) {
-        super(gp, path, 32, 32, mainInventory);
+    public Builder(GamePanel gp, String path, ArrayList<Resource> mainInventory, InventoryPanel inventoryPanel) {
+        super(gp, path, 32, 32, mainInventory, inventoryPanel);
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Builder extends Character{
                     this.increaseEnergy(10);
                 }
                 this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
                 break;
             }
 
@@ -79,9 +81,10 @@ public class Builder extends Character{
                 }
             }
 
-
+            inventoryPanel.updateInventory();
             return new Shelter();
         } else{
+            inventoryPanel.updateInventory();
             return null;
         }
 
@@ -91,7 +94,9 @@ public class Builder extends Character{
         for (Resource resource: this.getInventory()){
             if(Objects.equals(resource.getType(), "madera") || Objects.equals(resource.getType(), "liana") || Objects.equals(resource.getType(), "piedra")){
                 shelter.getRepared();
-
+                this.getInventory().remove(resource);
+                inventoryPanel.updateInventory();
+                break;
         }
     }
 }

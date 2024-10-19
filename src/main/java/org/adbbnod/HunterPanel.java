@@ -20,6 +20,7 @@ public class HunterPanel extends JPanel {
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
+    JButton defendButton = new JButton("Defender");
 
     Timer moveTimer;
     int targetX;
@@ -93,6 +94,7 @@ public class HunterPanel extends JPanel {
         this.add(actionsPanel, gbc);
 
         stylizeButton(huntButton, new Color(100, 180, 255));
+        stylizeButton(defendButton, new Color(100, 180, 255));
         stylizeButton(eatButton, new Color(150, 250, 150));
         stylizeButton(accidentButton, new Color(255, 100, 100));
         stylizeButton(illnessButton, new Color(255, 180, 100));
@@ -124,6 +126,13 @@ public class HunterPanel extends JPanel {
 
         huntButton.addActionListener(e -> {
             hunter.hunt(map);
+            energyBar.updateBatteryLevel(hunter.getEnergy());
+            healthBar.updateBatteryLevel(hunter.getHealth());
+            repaint();
+        });
+
+        defendButton.addActionListener(e -> {
+            hunter.defend(map);
             energyBar.updateBatteryLevel(hunter.getEnergy());
             healthBar.updateBatteryLevel(hunter.getHealth());
             repaint();
