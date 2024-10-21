@@ -20,6 +20,7 @@ public class HealerPanel extends JPanel {
     JButton eatButton = new JButton("Comer");
     JButton accidentButton = new JButton("Accidente");
     JButton illnessButton = new JButton("Enfermedad");
+    JButton gatherButton = new JButton("Recolectar*");
 
     Timer moveTimer;
     int targetX;
@@ -96,11 +97,13 @@ public class HealerPanel extends JPanel {
         stylizeButton(eatButton, new Color(150, 250, 150));
         stylizeButton(accidentButton, new Color(255, 100, 100));
         stylizeButton(illnessButton, new Color(255, 180, 100));
+        stylizeButton(gatherButton, new Color(100, 180, 255));
 
         actionsPanel.add(healButton);
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
+        actionsPanel.add(gatherButton);
 
         eatButton.addActionListener(e -> {
             healer.eat();
@@ -124,6 +127,13 @@ public class HealerPanel extends JPanel {
 
         healButton.addActionListener(e -> {
             healer.heal(map);
+            energyBar.updateBatteryLevel(healer.getEnergy());
+            healthBar.updateBatteryLevel(healer.getHealth());
+            repaint();
+        });
+
+        gatherButton.addActionListener(e -> {
+            healer.gather(map);
             energyBar.updateBatteryLevel(healer.getEnergy());
             healthBar.updateBatteryLevel(healer.getHealth());
             repaint();

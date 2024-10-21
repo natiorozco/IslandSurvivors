@@ -14,7 +14,7 @@ public class main implements Runnable {
     public static void main(String[] args) throws Exception {
 
         // Cargar el mapa
-        MapLoader mapLoader = new MapLoader("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\maps\\mapaFinal.json");
+        MapLoader mapLoader = new MapLoader("C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\maps\\mapaFinal.json");
         MapPanel mapPanel = new MapPanel(mapLoader);
         // C:\Users\bryan\OneDrive\Documentos\Allan\IslandSurvivors\sprites\tile0.png
         // Definir dimensiones del mapa
@@ -46,12 +46,12 @@ public class main implements Runnable {
 
         InventoryPanel inventoryPanel = new InventoryPanel(generalInventory);
         // Inicialización de personajes
-        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory, inventoryPanel); // Nobleman
-        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory, inventoryPanel); // Peasant
-        Healer healer = new Healer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png", generalInventory, inventoryPanel); // Oldwoman
-        Builder builder = new Builder(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniWorker.png", generalInventory, inventoryPanel); // Worker
-        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png", generalInventory, inventoryPanel); // Villager
-        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\characters\\MiniQueen.png", generalInventory, inventoryPanel); // Queen
+        Explorer explorer = new Explorer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniNobleMan.png", generalInventory, inventoryPanel); // Nobleman
+        Hunter hunter = new Hunter(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniPeasant.png", generalInventory, inventoryPanel); // Peasant
+        Healer healer = new Healer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniOldWoman.png", generalInventory, inventoryPanel); // Oldwoman
+        Builder builder = new Builder(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniWorker.png", generalInventory, inventoryPanel); // Worker
+        Gatherer gatherer = new Gatherer(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniVillagerMan.png", generalInventory, inventoryPanel); // Villager
+        Scientist scientist = new Scientist(gamePanel, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\characters\\MiniQueen.png", generalInventory, inventoryPanel); // Queen
 
         // Establecer coordenadas iniciales
         explorer.setX(7);
@@ -90,7 +90,8 @@ public class main implements Runnable {
 
         Character[] characters = {explorer,healer,builder,gatherer,scientist,hunter};
 
-        GodPanel godPanel = new GodPanel(characters,mapPanel, gamePanel, (ExplorerPanel) explorerPanel, (BuilderPanel) builderPanel, (GathererPanel) gathererPanel, (HealerPanel) healerPanel, (HunterPanel) hunterPanel, (ScientistPanel) scientistPanel);
+        GodPanel godPanel = new GodPanel(characters,mapPanel, gamePanel, (ExplorerPanel) explorerPanel, (BuilderPanel) builderPanel, (GathererPanel) gathererPanel, (HealerPanel) healerPanel, (HunterPanel) hunterPanel, (ScientistPanel) scientistPanel, window);
+
 
         //Panel del inventario
         inventoryPanel.setPreferredSize(new Dimension(100, window.getHeight()));
@@ -207,4 +208,8 @@ public class main implements Runnable {
     public void run() {
         // Puedes manejar la lógica principal del juego aquí si lo necesitas.
     }
+
+
+
+
 }

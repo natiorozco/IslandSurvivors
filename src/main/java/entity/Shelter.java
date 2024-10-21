@@ -53,4 +53,11 @@ public class Shelter extends Entity{
         return false;
     }
 
+    public ArrayList<Character> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(ArrayList<Character> characters) {
+        this.characters = characters;
+    }
 }

@@ -103,6 +103,7 @@ public class HunterPanel extends JPanel {
         actionsPanel.add(eatButton);
         actionsPanel.add(accidentButton);
         actionsPanel.add(illnessButton);
+        actionsPanel.add(defendButton);
 
         eatButton.addActionListener(e -> {
             hunter.eat();

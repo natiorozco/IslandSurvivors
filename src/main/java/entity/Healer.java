@@ -38,6 +38,21 @@ public class Healer extends Character{
         }
     }
 
+    public void gather(MapPanel map){
+        if (this.getEnergy()>=10){
+            Resource r = map.resourceHere(this.x,this.y);
+
+            if (r!=null && Objects.equals(r.getType(),"planta medicinal")){
+                this.getInventory().add(r);
+                r.setX(900);
+                r.setY(900);
+
+               this.reduceEnergy(10);
+            inventoryPanel.updateInventory();
+        }
+
+    }}
+
 
     public void heal(MapPanel map){
         Character c = map.characterToHealHere(this.x ,this.y);
