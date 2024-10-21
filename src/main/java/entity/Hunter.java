@@ -105,11 +105,14 @@ public class Hunter extends Character{
     public void rest(){
         if (this.getShelter()!=null){
             this.increaseEnergy(15);
+            System.out.println("Dormi!");
             if (this.getHealth()>90 && this.getHealth()<100){
                 this.setHealth(100);
             } if (this.getHealth()<90){
                 this.increaseHealth(10);
             }
+        }else{
+            this.reduceEnergy(10);
         }
     }
 }

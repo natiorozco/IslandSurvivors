@@ -35,7 +35,6 @@ public class Entity {
             System.out.println(spritePath);
             BufferedImage tileset = ImageIO.read(new File(spritePath));
 
-
             // Calcular el número de filas y columnas en el tileset
             int cols = tileset.getWidth() / spriteWidth;
             int rows = tileset.getHeight() / spriteHeight;

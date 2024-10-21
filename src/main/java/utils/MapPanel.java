@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import entity.Animal;
+import entity.*;
 import entity.Character;
-import entity.Entity;
-import entity.Resource;
 
 public class MapPanel extends JPanel {
     private MapLoader mapLoader;
@@ -19,12 +17,16 @@ public class MapPanel extends JPanel {
     private List<Character> characters;
     private List<Animal> animals;
     private List<Resource> resources;
+    private List<Shelter> shelters;
+    private int nonSleepChracters = 6;
+    private int sleepChracters = 0;
 
     public MapPanel(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.characters = new ArrayList<>();
         this.animals = new ArrayList<>();
         this.resources = new ArrayList<>();
+        this.shelters = new ArrayList<>();
 
         setPreferredSize(new Dimension(mapLoader.getMap(0)[0].length * mapLoader.getTileWidth(),
                 mapLoader.getMap(0).length * mapLoader.getTileHeight()));
@@ -52,6 +54,8 @@ public class MapPanel extends JPanel {
         resources.add(resource);
     }
 
+    public void addShelter(Shelter shelter) { shelters.add(shelter);}
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -77,9 +81,17 @@ public class MapPanel extends JPanel {
 
         drawFog(g, tileWidth, tileHeight);
 
+
+
         // Dibuja los personajes en sus posiciones
         for (Character character : characters) {
             drawCharacter(g, character, 2); // Aquí puedes pasar el índice del sprite si tienes diferentes estados
+        }
+
+        if (!shelters.isEmpty()){
+            for (Shelter shelter : shelters) {
+                spawnShelter(g, shelter);
+            }
         }
 
         for (Animal animal: animals){
@@ -106,8 +118,7 @@ public class MapPanel extends JPanel {
             }   else if(Objects.equals(resource.getType(), "liana")){
                 spawnResource(g, resource, 0);
             }
-            }
-
+        }
     }
 
     private void drawCharacter(Graphics g, Character character, int indx) {
@@ -117,7 +128,6 @@ public class MapPanel extends JPanel {
         int y = character.getY() * mapLoader.getTileHeight();
         g.drawImage(spriteToDraw, x, y, null);
     }
-
 
     private void drawFog(Graphics g, int tileWidth, int tileHeight) {
         g.setColor(new Color(0, 0, 0, 200));
@@ -148,6 +158,13 @@ public class MapPanel extends JPanel {
         BufferedImage spriteToDraw = resource.getSprite(indx);
         int x = resource.getX() * mapLoader.getTileWidth();
         int y = resource.getY() * mapLoader.getTileHeight();
+        g.drawImage(spriteToDraw, x, y, null);
+    }
+
+    public void spawnShelter(Graphics g, Shelter shelter){
+        BufferedImage spriteToDraw = shelter.getSprite(0);
+        int x = shelter.getX() * mapLoader.getTileWidth();
+        int y = shelter.getY() * mapLoader.getTileHeight();
         g.drawImage(spriteToDraw, x, y, null);
     }
 
@@ -187,6 +204,16 @@ public class MapPanel extends JPanel {
         return null;
     }
 
+    public Shelter shelterHere(int x, int y){
+        for (Shelter shelter : shelters){
+            if (shelter.getX() == x && shelter.getY() == y){
+                System.out.println("Acá hay un shelter");
+                return shelter;
+            }
+        }
+        return null;
+    }
+
     public Character characterToHealHere(int x, int y){
         for (Character character: characters){
             if (character.getX()==(x+1) && character.getY()==y){
@@ -194,5 +221,31 @@ public class MapPanel extends JPanel {
             }
         }
         return null;
+    }
+
+    public void characterToShelter(){
+
+        for (Shelter shelter : shelters) {
+            for (Character character : characters) {
+                if (character.getShelter() != null)
+                    continue;
+                shelter.addCharacter(character);
+            }
+        }
+    }
+
+
+    public void nextDayShelters(){
+        for (Shelter shelter : shelters){
+            boolean t = shelter.decreaseStability(20);
+            if (!t){
+                shelter.setX(900);
+                shelter.setY(900);
+
+                for (Character character : characters){
+                    shelter.deleteCharacter(character);
+                }
+            }
+        }
     }
 }

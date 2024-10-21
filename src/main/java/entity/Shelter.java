@@ -6,8 +6,14 @@ public class Shelter extends Entity{
 
     private int stability;
     private int capacity;
-    private ArrayList<Resource> materials;
     private ArrayList<Character> characters;
+
+    public Shelter(String path){
+        stability = 100;
+        capacity = 2;
+        characters = new ArrayList<>();
+        loadSprite(path, 32, 32);
+    }
 
     public void addCharacter(Character character){
         if (characters.size()<capacity){
@@ -28,6 +34,23 @@ public class Shelter extends Entity{
     }
 
     public void getRepared(){
+        System.out.println("Fui reparado");
         this.stability=100;
     }
+
+    public int getCapacity(){
+        return this.capacity;
+    }
+    public void decreaseCapacity(){
+        this.capacity--;
+    }
+
+    public boolean decreaseStability(int amount){
+        if (!(stability-amount<0)){
+            this.stability -= amount;
+            return true;
+        }
+        return false;
+    }
+
 }

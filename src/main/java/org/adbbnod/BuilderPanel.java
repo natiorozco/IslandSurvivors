@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.Builder;
+import entity.Shelter;
 import utils.MapPanel;
 
 public class BuilderPanel extends JPanel {
@@ -109,6 +110,30 @@ public class BuilderPanel extends JPanel {
         actionsPanel.add(illnessButton);
 
         // Action Listeners
+        buildButton.addActionListener(e -> {
+            Shelter newShelter = builder.buildShelter();
+
+            if (newShelter != null) {
+                newShelter.setX(builder.getX());
+                newShelter.setY(builder.getY());
+                map.addShelter(newShelter);
+                map.characterToShelter();
+            }
+
+            energyBar.updateBatteryLevel(builder.getEnergy());
+
+
+            repaint();
+        });
+
+        repairButton.addActionListener(e -> {
+            Shelter shelterToRepair = map.shelterHere(builder.getX(), builder.getY());
+            if (shelterToRepair != null) {
+                System.out.println("Voy a reparar");
+                builder.repair(shelterToRepair);
+            }
+        });
+
         eatButton.addActionListener(e -> {
             builder.eat();
             energyBar.updateBatteryLevel(builder.getEnergy());
@@ -128,6 +153,8 @@ public class BuilderPanel extends JPanel {
             healthBar.updateBatteryLevel(builder.getHealth());
             repaint();
         });
+
+
 
         moveButton.addActionListener(e -> {
             try {

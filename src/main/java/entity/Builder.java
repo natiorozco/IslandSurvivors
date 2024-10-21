@@ -40,6 +40,9 @@ public class Builder extends Character{
     public void rest() {
         if (this.getShelter()!=null){
             this.increaseEnergy(20);
+            System.out.println("Dormi!");
+        } else {
+            this.reduceEnergy(10);
         }
     }
 
@@ -82,7 +85,7 @@ public class Builder extends Character{
             }
 
             inventoryPanel.updateInventory();
-            return new Shelter();
+            return new Shelter("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\building_1.png");
         } else{
             inventoryPanel.updateInventory();
             return null;
@@ -96,6 +99,7 @@ public class Builder extends Character{
                 shelter.getRepared();
                 this.getInventory().remove(resource);
                 inventoryPanel.updateInventory();
+                this.reduceEnergy(20);
                 break;
         }
     }

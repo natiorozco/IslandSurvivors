@@ -80,7 +80,10 @@ public class Explorer extends Character{
         if (this.getShelter()!=null){
             if (this.getShelter().evaluate()>70){
                 this.increaseEnergy(20);
+                System.out.println("Dormi!");
             }
+        }else{
+            this.reduceEnergy(10);
         }
     }
 

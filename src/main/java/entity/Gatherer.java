@@ -61,7 +61,10 @@ public class Gatherer extends Character{
         if (this.getShelter()!=null){
             if (this.getShelter().evaluate()>70){
                 this.increaseEnergy(15);
+                System.out.println("Dormi!");
             }
+        }else{
+            this.reduceEnergy(10);
         }
     }
 }

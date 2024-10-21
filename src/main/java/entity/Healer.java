@@ -81,6 +81,9 @@ public class Healer extends Character{
     public void rest (){
         if (this.getShelter()!=null){
             this.increaseEnergy(15);
+            System.out.println("Dormi!");
+        }else{
+            this.reduceEnergy(10);
         }
     }
 }
