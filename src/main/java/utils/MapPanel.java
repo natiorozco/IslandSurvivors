@@ -249,9 +249,9 @@ public class MapPanel extends JPanel {
                     System.out.println(character.getEnergy());
                     character.reduceEnergy(5);
                     System.out.println(character.getEnergy());
-                } if (shelter.evaluate()>=30){
+                } else if (shelter.evaluate()>=30){
                     character.reduceEnergy(15);
-                } else{
+                } else {
                     character.reduceEnergy(25);
                 }
             }

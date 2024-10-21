@@ -102,7 +102,8 @@ public class GodPanel extends JPanel{
                 }
 
                 for (Character character:characters){
-                    character.rest();
+                    if (!storm)
+                        character.rest();
                     repaint();
                 }
 
@@ -144,25 +145,6 @@ public class GodPanel extends JPanel{
             map.stormShelter();
             map.stormOut();
             weather.setText("(Tormenta");
-            repaint();
-
-            explorerPanel.energyBar.updateBatteryLevel(explorerPanel.explorer.getEnergy());
-            explorerPanel.healthBar.updateBatteryLevel(explorerPanel.explorer.getHealth());
-
-            builderPanel.energyBar.updateBatteryLevel(builderPanel.builder.getEnergy());
-            builderPanel.healthBar.updateBatteryLevel(builderPanel.builder.getHealth());
-
-            gathererPanel.energyBar.updateBatteryLevel(gathererPanel.gatherer.getEnergy());
-            gathererPanel.healthBar.updateBatteryLevel(gathererPanel.gatherer.getHealth());
-
-            healerPanel.energyBar.updateBatteryLevel(healerPanel.healer.getEnergy());
-            healerPanel.healthBar.updateBatteryLevel(healerPanel.healer.getHealth());
-
-            hunterPanel.energyBar.updateBatteryLevel(hunterPanel.hunter.getEnergy());
-            hunterPanel.healthBar.updateBatteryLevel(hunterPanel.hunter.getHealth());
-
-            scientistPanel.energyBar.updateBatteryLevel(scientistPanel.scientist.getEnergy());
-            scientistPanel.healthBar.updateBatteryLevel(scientistPanel.scientist.getHealth());
         });
 
 
@@ -216,16 +198,16 @@ public class GodPanel extends JPanel{
     public Animal randomAnimal(){
         switch (rand.nextInt(4)){
             case 0:
-                return (new Animal("Oso", 30, 30, 5, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\MiniBear_RoseGold.png", this.gp));
+                return (new Animal("Oso", 30, 30, 5, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\animals\\MiniBear_RoseGold.png", this.gp));
 
             case 1:
-                return new Animal("Caballo", 20, 20, 4,"C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png" ,this.gp);
+                return new Animal("Caballo", 20, 20, 4,"C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png" ,this.gp);
 
             case 2:
-                return new Animal("Oveja", 10, 10, 3, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png", this.gp);
+                return new Animal("Oveja", 10, 10, 3, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png", this.gp);
 
             case 3:
-                return new Animal("Pollo", 5, 5, 2, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png",this.gp);
+                return new Animal("Pollo", 5, 5, 2, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\animals\\FarmAnimals.png",this.gp);
 
         }
 
@@ -235,15 +217,15 @@ public class GodPanel extends JPanel{
     public Resource randomResource(){
         switch (rand2.nextInt(5)){
             case 0:
-                return new Resource("vegetal", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\Food.png", this.gp);
+                return new Resource("vegetal", 1, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\resources\\Food.png", this.gp);
             case 1:
-                return new Resource("planta medicinal", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\plantasMedicinales.png", this.gp);
+                return new Resource("planta medicinal", 1, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\resources\\plantasMedicinales.png", this.gp);
             case 2:
-                return new Resource("madera", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\liana.png", this.gp);
+                return new Resource("madera", 1, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\resources\\liana.png", this.gp);
             case 3:
-                return new Resource("piedra",1,"C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\liana.png",this.gp);
+                return new Resource("piedra",1,"C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\resources\\liana.png",this.gp);
             case 4:
-                return new Resource("liana", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\liana.png",this.gp);
+                return new Resource("liana", 1, "C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\resources\\liana.png",this.gp);
             default:
                 return null;
         }
