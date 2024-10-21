@@ -56,25 +56,26 @@ public class Healer extends Character{
                 }
             }
 
-            for (Resource resource : getInventory()) {
-                if (Objects.equals(resource.getType(), "planta medicinal")) {
+            if (this.getEnergy()>=15) {
+                for (Resource resource : getInventory()) {
+                    if (Objects.equals(resource.getType(), "planta medicinal")) {
 
-                    this.getInventory().remove(resource);
-                    inventoryPanel.updateInventory();
-                    if (c.getHealth() <= 80) {
-                        c.increaseHealth(20);
-                        c.setSickness(0);
-                    } else if (c.getHealth() > 80) {
-                        c.setHealth(100);
-                        c.setSickness(0);
+                        this.getInventory().remove(resource);
+                        inventoryPanel.updateInventory();
+                        if (c.getHealth() <= 80) {
+                            c.increaseHealth(20);
+                            c.setSickness(0);
+                        } else if (c.getHealth() > 80) {
+                            c.setHealth(100);
+                            c.setSickness(0);
+                        }
+
+                        this.reduceEnergy(15);
+
+                        break;
                     }
-
-                    this.reduceEnergy(15);
-
-                    break;
                 }
             }
-
 
     }
 

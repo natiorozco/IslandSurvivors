@@ -55,6 +55,7 @@ public class Explorer extends Character{
     }
 
     public void explore(MapPanel map){
+        if (this.getEnergy()>=15){
         map.revealTile(this.getX()+1,this.getY());
         map.revealTile(this.getX()+1,this.getY()+1);
         map.revealTile(this.getX(),this.getY()+1);
@@ -64,16 +65,17 @@ public class Explorer extends Character{
         map.revealTile(this.getX(),this.getY()-1);
         map.revealTile(this.getX()+1,this.getY()-1);
         this.reduceEnergy(randomInRange);
-    }
+    }}
 
     public void gather(MapPanel map){
+        if (this.getEnergy()>=5){
         Resource r = map.resourceHere(this.x,this.y);
         if (r!=null){
         this.reduceEnergy(5);
         this.getInventory().add(r);
         r.setX(900);
         r.setY(900);
-        inventoryPanel.updateInventory();}
+        inventoryPanel.updateInventory();}}
     }
 
     public void rest(){

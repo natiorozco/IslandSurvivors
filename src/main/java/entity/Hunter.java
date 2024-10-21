@@ -73,7 +73,7 @@ public class Hunter extends Character{
     public void hunt(MapPanel map){
 
         Animal a = map.animalHere(this.x,this.y);
-        if (a != null) {
+        if (a != null && this.getEnergy()>=20) {
             Resource r = new Resource("carne", a.getFoodGained(),"C:/Users/natal/Desktop/sage/IslandSurvivors/sprites/resources/Food.png", gp);
             this.getInventory().add(r);
             inventoryPanel.updateInventory();

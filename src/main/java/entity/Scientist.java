@@ -37,6 +37,7 @@ public class Scientist extends Character{
     }
     
     public void createMedicine(){
+        if (this.getEnergy()>=15){
         for (Resource resource: this.getInventory()){
             if (Objects.equals(resource.getType(), "planta medicinal")){
                 Resource medicine = new Resource("medicina", 1, "C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\resources\\plantasMedicinales.png", this.gp);
@@ -47,7 +48,7 @@ public class Scientist extends Character{
                 break;
             }
         }
-    }
+    }}
 
     public void rest(){
         if (this.getShelter()!=null){

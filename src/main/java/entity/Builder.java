@@ -51,6 +51,7 @@ public class Builder extends Character{
         boolean rope = false;
         boolean stone = false;
 
+        if (this.getEnergy()>=20){
         //ver si estan todos los materiales necesarios
         for (Resource resource: this.getInventory()){
             if(Objects.equals(resource.getType(), "madera")){
@@ -85,23 +86,25 @@ public class Builder extends Character{
             }
 
             inventoryPanel.updateInventory();
-            return new Shelter("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\building_1.png");
+            this.reduceEnergy(20);
+            return new Shelter("C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\building_1.png");
         } else{
             inventoryPanel.updateInventory();
             return null;
-        }
-
+        }}
+    return null;
     }
 
     public void repair(Shelter shelter){
+        if (this.getEnergy()>=15){
         for (Resource resource: this.getInventory()){
             if(Objects.equals(resource.getType(), "madera") || Objects.equals(resource.getType(), "liana") || Objects.equals(resource.getType(), "piedra")){
                 shelter.getRepared();
                 this.getInventory().remove(resource);
                 inventoryPanel.updateInventory();
-                this.reduceEnergy(20);
+                this.reduceEnergy(15);
                 break;
         }
-    }
+    }}
 }
 }

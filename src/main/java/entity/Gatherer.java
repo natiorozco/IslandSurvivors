@@ -35,10 +35,10 @@ public class Gatherer extends Character{
     }
 
     public void gather(MapPanel map){
+        if (this.getEnergy()>=10){
         Resource r = map.resourceHere(this.x,this.y);
 
         if (r!=null){
-        this.reduceEnergy(5);
         this.getInventory().add(r);
         r.setX(900);
         r.setY(900);
@@ -55,7 +55,7 @@ public class Gatherer extends Character{
             this.reduceEnergy(20);
         }}
         inventoryPanel.updateInventory();
-    }
+    }}
 
     public void rest(){
         if (this.getShelter()!=null){
