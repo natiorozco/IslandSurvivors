@@ -87,7 +87,7 @@ public class Builder extends Character{
 
             inventoryPanel.updateInventory();
             this.reduceEnergy(20);
-            return new Shelter("C:\\Users\\natal\\Desktop\\sage\\IslandSurvivors\\sprites\\building_1.png");
+            return new Shelter("C:\\Users\\bryan\\OneDrive\\Documentos\\Allan\\IslandSurvivors\\sprites\\building_1.png");
         } else{
             inventoryPanel.updateInventory();
             return null;

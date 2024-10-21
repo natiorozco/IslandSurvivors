@@ -14,6 +14,7 @@ import entity.Character;
 public class MapPanel extends JPanel {
     private MapLoader mapLoader;
     private boolean[][] fog;
+    private boolean[][] rain;
     private List<Character> characters;
     private List<Animal> animals;
     private List<Resource> resources;
@@ -38,6 +39,13 @@ public class MapPanel extends JPanel {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 fog[y][x] = true;
+            }
+        }
+
+        rain = new boolean[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                rain[y][x] = false;
             }
         }
     }
@@ -80,7 +88,6 @@ public class MapPanel extends JPanel {
         }
 
         drawFog(g, tileWidth, tileHeight);
-
 
 
         // Dibuja los personajes en sus posiciones
@@ -139,6 +146,7 @@ public class MapPanel extends JPanel {
             }
         }
     }
+
 
     public void revealTile(int x, int y) {
         if (x >= 0 && x < fog[0].length && y >= 0 && y < fog.length) {
@@ -207,7 +215,6 @@ public class MapPanel extends JPanel {
     public Shelter shelterHere(int x, int y){
         for (Shelter shelter : shelters){
             if (shelter.getX() == x && shelter.getY() == y){
-                System.out.println("Acá hay un shelter");
                 return shelter;
             }
         }
@@ -234,6 +241,23 @@ public class MapPanel extends JPanel {
         }
     }
 
+    public void stormShelter(){
+        for (Shelter shelter : shelters) {
+            for (Character character : characters) {
+                character.reduceHealth(10);
+                character.reduceEnergy(10);
+            }
+        }
+    }
+
+    public void stormOut(){
+        for (Character character: characters){
+            if (character.getShelter() == null){
+                character.reduceEnergy(50);
+                character.reduceHealth(50);
+            }
+        }
+    }
 
     public void nextDayShelters(){
         for (Shelter shelter : shelters){
