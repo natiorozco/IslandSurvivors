@@ -145,6 +145,24 @@ public class GodPanel extends JPanel{
             map.stormOut();
             weather.setText("(Tormenta");
             repaint();
+
+            explorerPanel.energyBar.updateBatteryLevel(explorerPanel.explorer.getEnergy());
+            explorerPanel.healthBar.updateBatteryLevel(explorerPanel.explorer.getHealth());
+
+            builderPanel.energyBar.updateBatteryLevel(builderPanel.builder.getEnergy());
+            builderPanel.healthBar.updateBatteryLevel(builderPanel.builder.getHealth());
+
+            gathererPanel.energyBar.updateBatteryLevel(gathererPanel.gatherer.getEnergy());
+            gathererPanel.healthBar.updateBatteryLevel(gathererPanel.gatherer.getHealth());
+
+            healerPanel.energyBar.updateBatteryLevel(healerPanel.healer.getEnergy());
+            healerPanel.healthBar.updateBatteryLevel(healerPanel.healer.getHealth());
+
+            hunterPanel.energyBar.updateBatteryLevel(hunterPanel.hunter.getEnergy());
+            hunterPanel.healthBar.updateBatteryLevel(hunterPanel.hunter.getHealth());
+
+            scientistPanel.energyBar.updateBatteryLevel(scientistPanel.scientist.getEnergy());
+            scientistPanel.healthBar.updateBatteryLevel(scientistPanel.scientist.getHealth());
         });
 
 

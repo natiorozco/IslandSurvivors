@@ -3,10 +3,8 @@ package utils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import entity.*;
 import entity.Character;
@@ -242,21 +240,33 @@ public class MapPanel extends JPanel {
     }
 
     public void stormShelter(){
+
         for (Shelter shelter : shelters) {
-            for (Character character : characters) {
-                character.reduceHealth(10);
-                character.reduceEnergy(10);
+            for (Character character : shelter.getCharacters()) {
+                System.out.println(shelter.evaluate());
+                if (shelter.evaluate()>=70){
+                    System.out.println(character);
+                    System.out.println(character.getEnergy());
+                    character.reduceEnergy(5);
+                    System.out.println(character.getEnergy());
+                } if (shelter.evaluate()>=30){
+                    character.reduceEnergy(15);
+                } else{
+                    character.reduceEnergy(25);
+                }
             }
         }
+        repaint();
     }
 
     public void stormOut(){
         for (Character character: characters){
             if (character.getShelter() == null){
-                character.reduceEnergy(50);
-                character.reduceHealth(50);
+                character.reduceEnergy(15);
+                character.reduceHealth(10);
             }
         }
+        repaint();
     }
 
     public void nextDayShelters(){
